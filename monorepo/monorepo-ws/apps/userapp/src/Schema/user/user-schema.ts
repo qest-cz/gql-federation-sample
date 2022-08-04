@@ -1,7 +1,7 @@
-import {gql} from "apollo-server-express"
+import { gql } from 'apollo-server-express'
 
-export const typeDefs = gql`
-    type User @key(fields: "id") {
+export const userSchema = gql`
+        type User @key(fields: "id") {
         id: ID!
         name: String!,
         age: Int!,
@@ -21,4 +21,4 @@ export const typeDefs = gql`
     type Mutation {
         createUser(id: ID!, name: String!, age: Int!, married: Boolean!): User!
     }
-    `
+`

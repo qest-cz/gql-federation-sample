@@ -1,6 +1,7 @@
-import { Article, articles } from "../FakeData/FakeData";
+import { articles } from "../../fake-data/fake-data"
+import { Article } from "../interfaces"
 
-export const resolvers = {
+export const article = {
     Query: {
         getAllArticles(){
             return getArticles()
@@ -9,12 +10,6 @@ export const resolvers = {
             return articles
         },
     },
-    User: {
-        articles(user){
-            return articles.filter(article => article.authorId == user.id)
-        }
-    }
-    ,
     Mutation:{
     }
 }

@@ -1,6 +1,7 @@
-import { User, FriendShip, users, friendships } from "../FakeData/FakeData";
+import { users, friendships } from "../../fake-data/fake-data"
+import {User, FriendShip} from '../interfaces'
 
-export const resolvers = {
+export const user = {
     Query: {
         getAllUsers(){
             return getUsers()
@@ -23,7 +24,7 @@ export const resolvers = {
         createUser(parent: any, args:User){
             return addUser(args)
         }
-    }
+    }    
 }
 
 function getUsers() : User[] {
@@ -41,7 +42,3 @@ function getFriend(id: number) :User[] {
         .filter(item =>(item.friendOne == id))
         .map(x =><User> users.find(user => x.userTwo === user.id))
 }   
-
-
-
-

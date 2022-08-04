@@ -5,7 +5,7 @@ import { ApolloServer} from 'apollo-server-express';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { DocumentNode } from 'graphql';
-import { GraphQLResolverMap } from '@apollo/subgraph/dist/schema-helper';
+import { GraphQLResolverMap, GraphQLSchemaModule } from '@apollo/subgraph/dist/schema-helper';
 
 export const listen = (port: number, apolo) => {
     router.use(apolo)
@@ -23,9 +23,9 @@ export const listen = (port: number, apolo) => {
         .on('error', (e) => logger.error(e));
 };
 
-async function startApolloServer(typeDefs: DocumentNode, resolvers: GraphQLResolverMap) {      
+async function startApolloServer(modules: GraphQLSchemaModule[]) {      
     const server = new ApolloServer({
-        schema: buildSubgraphSchema({typeDefs, resolvers}),
+        schema: buildSubgraphSchema(modules),
         csrfPrevention: true,
         cache: 'bounded',
         plugins: [
@@ -37,8 +37,8 @@ async function startApolloServer(typeDefs: DocumentNode, resolvers: GraphQLResol
     return server.getMiddleware({path:'/graphql'});  
 }
 
-export async function runServer(port: number, typeDefs: DocumentNode, resolvers: GraphQLResolverMap){
-    const apolo = await startApolloServer(typeDefs, resolvers);
+export async function runServer(port: number, modules: GraphQLSchemaModule[]){
+    const apolo = await startApolloServer(modules);
     listen(port, apolo)
 }
 

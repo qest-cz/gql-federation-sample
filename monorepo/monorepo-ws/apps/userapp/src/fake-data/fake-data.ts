@@ -1,15 +1,4 @@
-export interface User{
-    id: number,
-    name: string,
-    age: number,
-    married: boolean        
-}
-
-export interface FriendShip{
-    friendOne: number,
-    userTwo: number
-}
-
+import {User, FriendShip} from '../schema/interfaces'
 export const friendships: FriendShip[]  = [{friendOne: 1, userTwo: 2},{friendOne: 1, userTwo: 3}]
 
 export const users: User[] = [

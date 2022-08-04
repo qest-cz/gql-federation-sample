@@ -1,9 +1,4 @@
-
-export interface Article {
-    id: number,
-    title: string,
-    authorId: number
-}
+import {Article} from '../schema/interfaces'
 
 export const articles: Article[] = [
     {
