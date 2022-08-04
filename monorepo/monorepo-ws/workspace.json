@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "articleapp": "apps/articleapp",
+    "federation-gateway": "apps/federation-gateway",
+    "server": "libs/server",
+    "user-gql": "libs/user-gql",
+    "userapp": "apps/userapp"
+  }
+}
