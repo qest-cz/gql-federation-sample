@@ -1,6 +1,6 @@
 import { runServer } from '@monorepo-ws/server';
-import { typeDefs } from "./Schema/TypeDefs";
+import { typeDefs } from "./Schema/type-defs";
 import { resolvers } from "./Schema/Resolvers";
-
-console.log('Hello World! aaaa');
-runServer(8080, typeDefs, resolvers);
+import { environment } from "./environments/environment"
+console.log('User-app running!');
+runServer(environment.PORT, typeDefs, resolvers);

@@ -5,6 +5,7 @@
     "articleapp": "apps/articleapp",
     "federation-gateway": "apps/federation-gateway",
     "server": "libs/server",
+    "shared-configs": "libs/shared-configs",
     "user-gql": "libs/user-gql",
     "userapp": "apps/userapp"
   }

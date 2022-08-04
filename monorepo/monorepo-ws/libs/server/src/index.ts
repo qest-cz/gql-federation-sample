@@ -1,6 +1,6 @@
 import { server, corsSetup } from '@qest/express-utils';
-import { logger } from './Logger';
-import { router } from './Router';
+import { logger } from './logger';
+import { router } from './router';
 import { ApolloServer} from 'apollo-server-express';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSubgraphSchema } from '@apollo/subgraph';
