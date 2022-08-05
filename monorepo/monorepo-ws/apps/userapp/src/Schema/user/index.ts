@@ -27,7 +27,7 @@ export const user = {
     }    
 }
 
-function getUsers() : User[] {
+export function getUsers() : User[] {
     return users
 }
 
