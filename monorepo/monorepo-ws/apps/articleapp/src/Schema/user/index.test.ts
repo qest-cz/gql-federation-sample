@@ -1,4 +1,3 @@
-import { server } from "@qest/express-utils"
 import { gql } from "apollo-server"
 import { server as testServer } from "../../test-utils"
 
@@ -15,13 +14,11 @@ const query = gql`
     }
 `
 
-
 describe('user resolver', () => {
     it('get article of user', async () => {
         const result = await testServer.executeOperation({
             query: query
         })
-        console.log(JSON.stringify(result.data))
         expect(result.data).toMatchSnapshot({getUser: userArticleMatcher})
     })
 })

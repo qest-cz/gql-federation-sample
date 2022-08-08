@@ -34,11 +34,10 @@ const userByNameQuery = gql`
 `
 
 describe('user resolver', () => {
-    it('should return articles for user', async () => {
+    it('should return users', async () => {
         const result = await testServer.executeOperation({
             query 
         })
-        console.log(JSON.stringify(result.data))
         expect(result.data).toMatchSnapshot({users: usersMatcher})
     })
     it('get user by name', async() => {
@@ -46,16 +45,17 @@ describe('user resolver', () => {
         query: userByNameQuery,
         variables: {name: 'Jakub'}
        })       
-    expect(result.data).toMatchSnapshot({getUserByName: getUserByNameMatcher})
-    })
+    expect(result.data).toMatchSnapshot(
+        {
+            getUserByName: 
+            {
+                id: expect.any(String),
+                name: expect.any(String),    
+                married: expect.any(Boolean),
+                age: expect.any(Number)}})
+        }
+        )
 })
-
-const getUserByNameMatcher = {
-    id: expect.any(String),
-    name: expect.any(String),    
-    married: expect.any(Boolean),
-    age: expect.any(Number),
-}
 
 const usersMatcher = [{
     id: expect.any(String),
