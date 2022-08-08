@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`article resolver should return articles 1`] = `
+Object {
+  "articles": Array [
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+  ],
+}
+`;
+
+exports[`article resolver shoult return articles from getArticles 1`] = `
+Object {
+  "getAllArticles": Array [
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+    Object {
+      "authorId": Any<String>,
+      "id": Any<String>,
+      "title": Any<String>,
+    },
+  ],
+}
+`;
