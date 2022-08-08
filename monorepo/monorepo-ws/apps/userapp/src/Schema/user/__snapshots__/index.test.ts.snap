@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user resolver get user by name 1`] = `
+Object {
+  "getUserByName": Object {
+    "age": Any<Number>,
+    "id": Any<String>,
+    "married": Any<Boolean>,
+    "name": Any<String>,
+  },
+}
+`;
+
+exports[`user resolver should return articles for user 1`] = `
+Object {
+  "users": Array [
+    Object {
+      "age": Any<Number>,
+      "friends": Array [
+        Object {
+          "name": Any<String>,
+        },
+        Object {
+          "name": Any<String>,
+        },
+      ],
+      "id": Any<String>,
+      "married": Any<Boolean>,
+      "name": Any<String>,
+    },
+    Object {
+      "age": Any<Number>,
+      "friends": Array [],
+      "id": Any<String>,
+      "married": Any<Boolean>,
+      "name": Any<String>,
+    },
+    Object {
+      "age": Any<Number>,
+      "friends": Array [],
+      "id": Any<String>,
+      "married": Any<Boolean>,
+      "name": Any<String>,
+    },
+    Object {
+      "age": Any<Number>,
+      "friends": Array [],
+      "id": Any<String>,
+      "married": Any<Boolean>,
+      "name": Any<String>,
+    },
+  ],
+}
+`;

@@ -7,7 +7,7 @@ export const user = {
             return getUsers()
         },
         getUserByName(parent: any, args: string){
-            return {id: 123, name: "Karel", age: 21, married: false}
+            return {id: 12, name: "Karel", age: 34, married: false}
         },
         users(){
             return users
