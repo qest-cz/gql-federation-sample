@@ -16,8 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@monorepo-ws/server": ["libs/server/src/index.ts"],
-      "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"],
-      "@monorepo-ws/user-gql": ["libs/user-gql/src/index.ts"]
+      "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

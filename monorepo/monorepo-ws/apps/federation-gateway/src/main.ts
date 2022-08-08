@@ -6,15 +6,15 @@ const { ApolloGateway } = require('@apollo/gateway');
 
 const gateway = new ApolloGateway({
     serviceList: [
-        // { name: 'users', url: 'http://localhost:8080/graphql'},
-        // { name: 'articles', url: 'http://localhost:5000/graphql'}
-        { name: 'users', url: environment.USER_APP_URL},
-        { name: 'articles', url: environment.ARTICLE_APP_URL}
+        // { name: 'users', url: environment.USER_APP_URL},        
+        // { name: 'articles', url: environment.ARTICLE_APP_URL}
+        { name: 'users', url: process.env.URL_USER_APP},
+        { name: 'articles', url: process.env.URL_ARTICLE_APP}
     ]
 })
 
 const server = new ApolloServer({gateway, subscription: false })
 
-server.listen({port: environment.PORT}).then(({ url }) => {
+server.listen({port: process.env.PORT}).then(({ url }) => {
   console.log(`🚀 Gateway ready at ${url}`);
 }).catch(err => {console.error(err)});

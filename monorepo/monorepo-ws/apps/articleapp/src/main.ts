@@ -3,4 +3,5 @@ import { environment } from "./environments/environment"
 import { modules } from './schema/modules'
  
 console.log("article app is running!")
-runServer(environment.PORT, modules)
+const port: number =+ process.env.port
+runServer(port, modules)
