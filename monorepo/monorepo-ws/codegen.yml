@@ -1,0 +1,30 @@
+overwrite: true
+generates:
+  apps/articleapp/src/resolvers/interfaces.ts:
+      schema:
+        - apps/articleapp/src/resolvers/**/*-schema.ts
+      plugins:
+        - typescript
+      config:
+        typesPrefix: 'Gql'
+        declarationKind: interface
+        avoidOptionals: true
+        namingConvention:
+          enumValues: change-case#upperCase
+        scalars:
+          ID: string | number
+          DateTime: Date
+  apps/userapp/src/resolvers/interfaces.ts:
+    schema:
+      - apps/userapp/src/resolvers/**/*-schema.ts
+    plugins:
+      - typescript
+    config:
+      typesPrefix: 'Gql'
+      declarationKind: interface
+      avoidOptionals: true
+      namingConvention:
+        enumValues: change-case#upperCase
+      scalars:
+        ID: string | number
+        DateTime: Date

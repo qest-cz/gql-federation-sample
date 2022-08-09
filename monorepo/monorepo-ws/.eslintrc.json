@@ -1,7 +1,9 @@
 {
   "root": true,
   "ignorePatterns": [
-    "**/*"
+    //"**/*"
+    "dist",
+    "*.d.ts"
   ],
   "plugins": [
     "@nrwl/nx"
@@ -38,9 +40,42 @@
         "*.tsx"
       ],
       "extends": [
-        "plugin:@nrwl/nx/typescript"
+        //"plugin:@nrwl/nx/typescript"        
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "prettier",
+        "plugin:prettier/recommended"
+
       ],
-      "rules": {}
+      "rules": {
+        //"no-console": "error"
+        "no-console": "error",
+        "prefer-destructuring": ["error", {
+            "VariableDeclarator": {
+                "array": false,
+                "object": true
+            },
+            "AssignmentExpression": {
+                "array": false,
+                "object": false
+            }
+        }],
+        "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "import/order": "error",
+        "@typescript-eslint/no-unused-vars": ["error", {
+            "argsIgnorePattern": "^_"
+        }],
+        "no-param-reassign": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/no-explicit-any": "error",
+        "import/no-unresolved": "off",
+        "import/no-duplicates": "error"
+      }
     },
     {
       "files": [

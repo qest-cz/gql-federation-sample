@@ -1,40 +1,41 @@
-import { users, friendships } from "../../fake-data/fake-data"
-import {User, FriendShip} from '../interfaces'
+import { users, friendships } from '../../fake-data/fake-data';
+import { User } from '../../services/user-services/interfaces';
+import { GqlUser } from '../interfaces';
 
 export const user = {
-    Query: {
-        getAllUsers(){
-            return getUsers()
-        },
-        getUserByName(parent: any, args: string){
-            return {id: 12, name: "Karel", age: 34, married: false}
-        },
-        users(){
-            return users
-        }
+  Query: {
+    getAllUsers() {
+      return getUsers();
     },
-    User: {      
-        friends: (parent: any) => getFriend(parent.id),
+    getUserByName(_, args: string) {
+      return { id: 12, name: args, age: 34, married: false };
     },
-    Mutation:{
-        createUser(parent: any, args:User){
-            return addUser(args)
-        }
-    }    
+    users() {
+      return users;
+    },
+  },
+  User: {
+    friends: (parent: User) => getFriend(Number(parent.id)),
+  },
+  Mutation: {
+    createUser(_, args: GqlUser) {
+      return addUser(args);
+    },
+  },
+};
+
+export function getUsers(): User[] {
+  return users;
 }
 
-export function getUsers() : User[] {
-    return users
+function addUser(user: User): User {
+  const newUser: User = user;
+  users.push(newUser);
+  return newUser;
 }
 
-function addUser(user: User) :User{
-    const newUser: User = user
-    users.push(newUser)
-    return newUser
+function getFriend(id: number): GqlUser[] {
+  return friendships
+    .filter((item) => item.friendOne == id)
+    .map((x) => <GqlUser>users.find((user) => x.userTwo === user.id));
 }
-
-function getFriend(id: number) :User[] {
-    return friendships
-        .filter(item =>(item.friendOne == id))
-        .map(x =><User> users.find(user => x.userTwo === user.id))
-}   
