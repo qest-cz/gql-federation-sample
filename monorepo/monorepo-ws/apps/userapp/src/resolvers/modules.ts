@@ -1,9 +1,9 @@
-import { userSchema } from './user/user-schema'
-import { user } from './user'
+import { userSchema } from './user/user-schema';
+import { user } from './user';
 
 export const modules = [
-    {
-        typeDefs: userSchema,
-        resolvers: user
-    }
-]
+  {
+    typeDefs: userSchema,
+    resolvers: user,
+  },
+];

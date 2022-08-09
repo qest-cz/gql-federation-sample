@@ -1,18 +1,14 @@
-import { IntrospectAndCompose } from "@apollo/gateway";
-import { environment } from "./environments/environment";
-
-const { ApolloServer } = require('apollo-server');
-const { ApolloGateway } = require('@apollo/gateway');
+import { ApolloServer } from 'apollo-server';
+import { ApolloGateway } from '@apollo/gateway';
 
 const gateway = new ApolloGateway({
-    serviceList: [
-        { name: 'users', url: process.env.URL_USER_APP},
-        { name: 'articles', url: process.env.URL_ARTICLE_APP}
-    ]
-})
+  serviceList: [
+    { name: 'users', url: process.env.URL_USER_APP },
+    { name: 'articles', url: process.env.URL_ARTICLE_APP },
+  ],
+});
 
-const server = new ApolloServer({gateway, subscription: false })
+const server = new ApolloServer({ gateway });
 
-server.listen({port: process.env.PORT}).then(({ url }) => {
-  console.log(`🚀 Gateway ready at ${url}`);
-}).catch(err => {console.error(err)});
+server
+  .listen({ port: process.env.PORT })
