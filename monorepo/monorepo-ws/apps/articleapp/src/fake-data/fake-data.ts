@@ -1,4 +1,4 @@
-import {Article} from '../schema/interfaces'
+import {Article} from '../resolvers/interfaces'
 
 export const articles: Article[] = [
     {

@@ -1,4 +1,4 @@
-import {User, FriendShip} from '../schema/interfaces'
+import {User, FriendShip} from '../resolvers/interfaces'
 export const friendships: FriendShip[]  = [{friendOne: 1, userTwo: 2},{friendOne: 1, userTwo: 3}]
 
 export const users: User[] = [

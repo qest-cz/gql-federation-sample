@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user resolver get article of user 1`] = `
+Object {
+  "getUser": Object {
+    "articles": Array [
+      Object {
+        "authorId": Any<String>,
+        "id": Any<String>,
+        "title": Any<String>,
+      },
+      Object {
+        "authorId": Any<String>,
+        "id": Any<String>,
+        "title": Any<String>,
+      },
+    ],
+    "id": Any<String>,
+  },
+}
+`;

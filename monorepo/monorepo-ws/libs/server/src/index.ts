@@ -37,6 +37,17 @@ async function startApolloServer(modules: GraphQLSchemaModule[]) {
     return server.getMiddleware({path:'/graphql'});  
 }
 
+export function testServer(modules: GraphQLSchemaModule[]) {      
+    return new ApolloServer({
+        schema: buildSubgraphSchema(modules),
+        csrfPrevention: true,
+        cache: 'bounded',
+        plugins: [
+        ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+        ],
+    });
+}
+
 export async function runServer(port: number, modules: GraphQLSchemaModule[]){
     const apolo = await startApolloServer(modules);
     listen(port, apolo)
