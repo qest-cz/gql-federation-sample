@@ -6,8 +6,6 @@ const { ApolloGateway } = require('@apollo/gateway');
 
 const gateway = new ApolloGateway({
     serviceList: [
-        // { name: 'users', url: environment.USER_APP_URL},        
-        // { name: 'articles', url: environment.ARTICLE_APP_URL}
         { name: 'users', url: process.env.URL_USER_APP},
         { name: 'articles', url: process.env.URL_ARTICLE_APP}
     ]

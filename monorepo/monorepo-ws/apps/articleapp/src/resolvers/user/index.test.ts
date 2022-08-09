@@ -19,22 +19,20 @@ describe('user resolver', () => {
         const result = await testServer.executeOperation({
             query: query
         })
-        expect(result.data).toMatchSnapshot({getUser: userArticleMatcher})
+        expect(result.data).toMatchSnapshot({getUser: {
+            id: expect.any(String),
+            articles: [
+                {
+                    id: expect.any(String),
+                    title: expect.any(String),
+                    authorId: expect.any(String)
+                },
+                {
+                    id: expect.any(String),
+                    title: expect.any(String),
+                    authorId: expect.any(String)
+                }         
+            ]
+        }})
     })
 })
-
-const userArticleMatcher = {
-    id: expect.any(String),
-    articles: [
-        {
-            id: expect.any(String),
-            title: expect.any(String),
-            authorId: expect.any(String)
-        },
-        {
-            id: expect.any(String),
-            title: expect.any(String),
-            authorId: expect.any(String)
-        }         
-    ]
-}

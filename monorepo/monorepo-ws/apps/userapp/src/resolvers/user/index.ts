@@ -13,12 +13,8 @@ export const user = {
             return users
         }
     },
-    User: {
-        // name: (parent: any) => parent.name + " Fanda",       
+    User: {      
         friends: (parent: any) => getFriend(parent.id),
-        // _resolveReference(user: User){
-        //     return users.find(u => u.id === user.id)
-        // }
     },
     Mutation:{
         createUser(parent: any, args:User){

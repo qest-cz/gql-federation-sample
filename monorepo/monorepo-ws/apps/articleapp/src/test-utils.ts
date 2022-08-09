@@ -1,7 +1,7 @@
 import { testServer} from '@monorepo-ws/server'; 
-import { modules } from './schema/modules';
+import { modules } from './resolvers/modules';
 import { gql } from 'apollo-server';
-import { GqlUser } from './schema/interfaces';
+import { GqlUser } from './resolvers/interfaces';
 
 const testModules = [
     {
