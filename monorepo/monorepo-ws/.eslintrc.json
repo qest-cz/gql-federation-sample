@@ -1,7 +1,6 @@
 {
   "root": true,
   "ignorePatterns": [
-    //"**/*"
     "dist",
     "*.d.ts"
   ],
@@ -39,8 +38,7 @@
         "*.ts",
         "*.tsx"
       ],
-      "extends": [
-        //"plugin:@nrwl/nx/typescript"        
+      "extends": [   
         "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
@@ -50,7 +48,6 @@
 
       ],
       "rules": {
-        //"no-console": "error"
         "no-console": "error",
         "prefer-destructuring": ["error", {
             "VariableDeclarator": {
