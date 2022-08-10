@@ -1,9 +1,11 @@
-import { articles } from '../../fake-data/fake-data';
+import { getAllArticles } from '../../services/article-services';
 
 export const user = {
   User: {
-    articles(user) {
-      return articles.filter((article) => article.authorId == user.id);
+    articles: async (user) => {
+      return (await getAllArticles()).filter(
+        (article) => article.authorId == user.id
+      );
     },
   },
 };

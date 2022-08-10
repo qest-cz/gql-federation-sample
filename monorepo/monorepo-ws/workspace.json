@@ -4,6 +4,7 @@
     "projects": {
         "articleapp": "apps/articleapp",
         "federation-gateway": "apps/federation-gateway",
+        "prisma-article-app-client": "libs/prisma-article-app-client",
         "server": "libs/server",
         "shared-configs": "libs/shared-configs",
         "userapp": "apps/userapp"

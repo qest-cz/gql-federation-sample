@@ -1617,6 +1617,23 @@
   dependencies:
     "esquery" "^1.0.1"
 
+"@prisma/client@^4.2.0":
+  "integrity" "sha512-Q/X8fi1UBufCrkdLk188sC/roiGxEm1V3qU4uEP5SyleO5n2A+FyC62S7+4I0hu57CU3c7Ls3YjqPiZyTHVGOw=="
+  "resolved" "https://registry.npmjs.org/@prisma/client/-/client-4.2.0.tgz"
+  "version" "4.2.0"
+  dependencies:
+    "@prisma/engines-version" "4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826"
+
+"@prisma/engines-version@4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826":
+  "integrity" "sha512-tktkqdiwqE4QhmE088boPt+FwPj1Jub/zk+5F6sEfcRHzO5yz9jyMD5HFVtiwxZPLx/8Xg9ElnuTi8E5lWVQFQ=="
+  "resolved" "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826.tgz"
+  "version" "4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826"
+
+"@prisma/engines@4.2.0":
+  "integrity" "sha512-tefRwCVDwLqk0WrBLErYR26uKKxzLSlKvRyADFiQn/fizJhqk9nxMXH8F6SE4w6r/szUQTzIJ4vheJKQ4dYKpw=="
+  "resolved" "https://registry.npmjs.org/@prisma/engines/-/engines-4.2.0.tgz"
+  "version" "4.2.0"
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   "integrity" "sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ=="
   "resolved" "https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz"
@@ -1998,7 +2015,7 @@
     "@types/node" "*"
     "form-data" "^3.0.0"
 
-"@types/node@*", "@types/node@>=12", "@types/node@16.11.7":
+"@types/node@*", "@types/node@^16.11.7", "@types/node@>=12":
   "integrity" "sha512-QB5D2sqfSjCmTuWcBWyJ+/44bcjO7VbjSbOE0ucoVbAsSNQc4Lt6QkgkVXkTDwkL4z/beecZNDvVX15D4P8Jbw=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-16.11.7.tgz"
   "version" "16.11.7"
@@ -6980,6 +6997,13 @@
     "ansi-regex" "^5.0.1"
     "ansi-styles" "^5.0.0"
     "react-is" "^17.0.1"
+
+"prisma@*", "prisma@^4.2.0":
+  "integrity" "sha512-EswC2+mFi2oKQ/IDVkokDxwAsuiuYH4gKGkNNMAQ+86f3qwOo4tiVubCRxrQp5d61F+Yf+30f8Sv0zwWMnj0XQ=="
+  "resolved" "https://registry.npmjs.org/prisma/-/prisma-4.2.0.tgz"
+  "version" "4.2.0"
+  dependencies:
+    "@prisma/engines" "4.2.0"
 
 "process-warning@^1.0.0":
   "integrity" "sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q=="

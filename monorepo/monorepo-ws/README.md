@@ -92,3 +92,33 @@ Nx Cloud pairs with Nx in order to enable you to build and test code more rapidl
 Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
+
+## How to add prisma to app
+We have to create separate lib of prisma client for every using app. All npm commands have to set to global `package.json` of monorepo. Here is link where is tutorial what we have to install. `https://www.prisma.io/docs/getting-started/quickstart`
+
+create lib:
+
+`nx g @nrwl/node:lib ourName --buildable`
+
+Now we have to create folder prisma with schema. File `schema.prisma` can use .env in our created lib.
+
+After init schema we can run migration. We have to be in directory of our new lib.
+
+`npx prisma migrate dev --name init`
+
+Next we have to generate prisma client from our schema. `yarn prisma generate --schema=./libs/prisma-article-client/prisma/schema.prisma`. Output is defined in `schema.prisma`. 
+
+In `src/index.ts` define export of created directory (in my example `export * from "./generated"`)
+
+Now we can import `PrismaClient` from this our lib.
+
+My prisma client lib example you can find in `lib/prisma-article-app-client`
+
+
+
+
+
+
+
+
+

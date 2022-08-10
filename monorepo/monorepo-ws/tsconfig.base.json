@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@monorepo-ws/prisma-article-app-client": [
+        "libs/prisma-article-app-client/src/index.ts"
+      ],
       "@monorepo-ws/server": ["libs/server/src/index.ts"],
       "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"]
     }
