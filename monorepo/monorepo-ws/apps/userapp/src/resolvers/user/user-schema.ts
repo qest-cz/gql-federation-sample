@@ -15,10 +15,12 @@ export const userSchema = gql`
     getAllUsers: [User!]!
     getUserByName(name: String!): User
     getUserByNameOrAge(name: String, age: Int): [User]!
+    getUserById(id: Int): User!
   }
 
   #Mutations
   type Mutation {
-    createUser(id: ID!, name: String!, age: Int!, married: Boolean!): User!
+    createUser(name: String!, age: Int!, married: Boolean!): User!
+    createFriendShip(friendOf: Int!, friendWith: Int!): User!
   }
 `;

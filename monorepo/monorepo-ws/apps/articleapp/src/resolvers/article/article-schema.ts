@@ -15,6 +15,6 @@ export const articleSchema = gql`
 
   #Mutations
   type Mutation {
-    createArticle(id: ID!, title: String!, authorId: ID!): Article!
+    createArticle(title: String!, authorId: ID!): Article!
   }
 `;

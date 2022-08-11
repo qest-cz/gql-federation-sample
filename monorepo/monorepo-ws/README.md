@@ -106,7 +106,7 @@ After init schema we can run migration. We have to be in directory of our new li
 
 `npx prisma migrate dev --name init`
 
-Next we have to generate prisma client from our schema. `yarn prisma generate --schema=./libs/prisma-article-client/prisma/schema.prisma`. Output is defined in `schema.prisma`. 
+Next we have to generate prisma client from our schema. Remove everything in src expect `index.ts` and run `yarn prisma generate --schema=./libs/prisma-article-client/prisma/schema.prisma`. Output is defined in `schema.prisma`. 
 
 In `src/index.ts` define export of created directory (in my example `export * from "./generated"`)
 
