@@ -36,13 +36,8 @@ describe('article resolver', () => {
           id: expect.any(String),
           title: expect.any(String),
           authorId: expect.any(String),
-        },
-        {
-          id: expect.any(String),
-          title: expect.any(String),
-          authorId: expect.any(String),
-        },
-      ],
+        }
+      ]
     });
   }),
     it('shoult return articles from getArticles', async () => {
@@ -60,12 +55,7 @@ describe('article resolver', () => {
             id: expect.any(String),
             title: expect.any(String),
             authorId: expect.any(String),
-          },
-          {
-            id: expect.any(String),
-            title: expect.any(String),
-            authorId: expect.any(String),
-          },
+          }
         ],
       });
     });

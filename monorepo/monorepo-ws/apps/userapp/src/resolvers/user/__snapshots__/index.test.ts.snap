@@ -11,7 +11,7 @@ Object {
 }
 `;
 
-exports[`user resolver should return articles for user 1`] = `
+exports[`user resolver should return users 1`] = `
 Object {
   "users": Array [
     Object {
@@ -20,24 +20,7 @@ Object {
         Object {
           "name": Any<String>,
         },
-        Object {
-          "name": Any<String>,
-        },
       ],
-      "id": Any<String>,
-      "married": Any<Boolean>,
-      "name": Any<String>,
-    },
-    Object {
-      "age": Any<Number>,
-      "friends": Array [],
-      "id": Any<String>,
-      "married": Any<Boolean>,
-      "name": Any<String>,
-    },
-    Object {
-      "age": Any<Number>,
-      "friends": Array [],
       "id": Any<String>,
       "married": Any<Boolean>,
       "name": Any<String>,

@@ -8,5 +8,7 @@ export const modules = [
     typeDefs: userSchema,
     resolvers: user,
   },
-  { typeDefs: articleSchema, resolvers: article },
+  { typeDefs: articleSchema,
+    resolvers: article 
+  },
 ];

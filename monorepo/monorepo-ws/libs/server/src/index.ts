@@ -2,10 +2,11 @@ import { server, corsSetup } from '@qest/express-utils';
 import { logger } from './logger';
 import { router } from './router';
 import { ApolloServer} from 'apollo-server-express';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { ApolloServerPluginLandingPageLocalDefault, Context } from 'apollo-server-core';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { DocumentNode } from 'graphql';
 import { GraphQLResolverMap, GraphQLSchemaModule } from '@apollo/subgraph/dist/schema-helper';
+import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 
 export const listen = (port: number, apolo) => {
     router.use(apolo)
@@ -23,7 +24,7 @@ export const listen = (port: number, apolo) => {
         .on('error', (e) => logger.error(e));
 };
 
-async function startApolloServer(modules: GraphQLSchemaModule[]) {      
+async function startApolloServer(modules: GraphQLSchemaModule[], dataSources: () => DataSources<Context>) {      
     const server = new ApolloServer({
         schema: buildSubgraphSchema(modules),
         csrfPrevention: true,
@@ -31,13 +32,14 @@ async function startApolloServer(modules: GraphQLSchemaModule[]) {
         plugins: [
         ApolloServerPluginLandingPageLocalDefault({ embed: true }),
         ],
+        dataSources
     });
     
     await server.start();
     return server.getMiddleware({path:'/graphql'});  
 }
 
-export function testServer(modules: GraphQLSchemaModule[]) {      
+export function testServer(modules: GraphQLSchemaModule[], dataSources: () => DataSources<Context>) {      
     return new ApolloServer({
         schema: buildSubgraphSchema(modules),
         csrfPrevention: true,
@@ -45,11 +47,12 @@ export function testServer(modules: GraphQLSchemaModule[]) {
         plugins: [
         ApolloServerPluginLandingPageLocalDefault({ embed: true }),
         ],
+        dataSources
     });
 }
 
-export async function runServer(port: number, modules: GraphQLSchemaModule[]){
-    const apolo = await startApolloServer(modules);
+export async function runServer(port: number, modules: GraphQLSchemaModule[], dataSources: () => DataSources<Context>){
+    const apolo = await startApolloServer(modules, dataSources);
     listen(port, apolo)
 }
 

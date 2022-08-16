@@ -13,11 +13,6 @@ Object {
       "id": Any<String>,
       "title": Any<String>,
     },
-    Object {
-      "authorId": Any<String>,
-      "id": Any<String>,
-      "title": Any<String>,
-    },
   ],
 }
 `;
@@ -25,11 +20,6 @@ Object {
 exports[`article resolver shoult return articles from getArticles 1`] = `
 Object {
   "getAllArticles": Array [
-    Object {
-      "authorId": Any<String>,
-      "id": Any<String>,
-      "title": Any<String>,
-    },
     Object {
       "authorId": Any<String>,
       "id": Any<String>,

@@ -1,16 +1,23 @@
-import { getAllArticles } from '../../services/article-services/index';
 import { GqlMutationCreateArticleArgs } from '../interfaces';
-import { createArticle } from '../../services/article-services/index';
+import { Context as ApolloContext } from 'apollo-server-core';
+import { DataSources } from '../../main';
+
+interface Context extends ApolloContext{
+  dataSources: DataSources 
+}
 
 export const article = {
   Query: {
-    getAllArticles() {
-      return getAllArticles();
+    getAllArticles(_, __, c: Context) {
+      return c.dataSources.article.getAllArticles();
     },
+    articles: (_, __, c: Context) => {
+      return c.dataSources.article.getAllArticles()
+    }    
   },
   Mutation: {
-    createArticle(_, newArticle: GqlMutationCreateArticleArgs){
-        return createArticle(newArticle)
+    createArticle(_, newArticle: GqlMutationCreateArticleArgs, c: Context){
+        return c.dataSources.article.createArticle(newArticle)
     }
   },
 };
