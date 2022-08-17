@@ -28,9 +28,9 @@ const testModules = [
 const testArticles: Article[] = [{id: 1, title: "first title", authorId: 1},
                                 {id: 2, title: "second title", authorId: 1}]
 
-export const server = testServer([...modules, ...testModules], (): DataSources => ({article: new ArticleDataSource()}));
+export const server = testServer([...modules, ...testModules], (): DataSources => ({article: new FakePrismaArticleDataSource()}));
 
-class ArticleDataSource extends ApolloDataSources implements IArticleDataSource{
+class FakePrismaArticleDataSource extends ApolloDataSources implements IArticleDataSource{
     constructor(){
       super()
     }
@@ -42,5 +42,10 @@ class ArticleDataSource extends ApolloDataSources implements IArticleDataSource{
     async createArticle(newArticle: GqlMutationCreateArticleArgs): Promise<GqlArticle>{
         const article: Article = {id: 3, title: 'added title', authorId: 1} 
         return exportArticle(article)
+    }
+
+    async GetArticleByAuthorId(id: number) : Promise<GqlArticle[]>{
+      const articles = testArticles.filter(x => x.authorId == id)
+      return exportArticles(articles)
     }
 }

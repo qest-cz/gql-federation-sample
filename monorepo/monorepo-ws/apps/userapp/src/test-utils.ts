@@ -1,19 +1,19 @@
 import { testServer } from '@monorepo-ws/server';
 import { modules } from './resolvers/modules';
 import {DataSource as ApolloDataSources} from 'apollo-datasource'
-import { IUserDataSource } from './data-sources/interfaces';
+import { UserDataSource } from './data-sources/interfaces';
 import  * as GqlInterfaces from './resolvers/interfaces'
 import { FriendShip, User } from '@monorepo-ws/prisma-user-app-client'; 
 import * as UserServices from './services/user-services' 
 import { DataSources } from './main'
 
-export const server = testServer(modules, (): DataSources => ({user: new UserDataSource()}));
+export const server = testServer(modules, (): DataSources => ({user: new FakePrismaUserDataSource()}));
 
 const testUserArray: User[] = [ {name: 'Jakub', age: 25, married: true, id: 1},
                                 {name: 'Karel', age: 30, married: false, id: 2}] 
 const testFriendShip: FriendShip[] =  [{friendOfId: 1, friendWithId: 2}]
 
-class UserDataSource extends ApolloDataSources implements IUserDataSource{
+class FakePrismaUserDataSource extends ApolloDataSources implements UserDataSource{
     constructor(){
         super()
     }

@@ -8,10 +8,8 @@ interface Context extends ApolloContext{
 
 export const user = {
   User: {
-    articles: async (user, __, c: Context) => {
-      return (await c.dataSources.article.getAllArticles()).filter(
-        (article) => article.authorId == user.id
-      );
+    articles: (user, __, c: Context) => {
+      return c.dataSources.article.GetArticleByAuthorId(user.id)
     },
   },
 };

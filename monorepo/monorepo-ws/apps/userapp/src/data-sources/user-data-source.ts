@@ -3,9 +3,9 @@ import {DataSource} from 'apollo-datasource'
 import { ApolloError } from 'apollo-server-core'
 import * as GqlInterfaces from '../resolvers/interfaces'
 import { exportUser, exportUsers} from '../services/user-services'
-import { IUserDataSource } from './interfaces'
+import { UserDataSource } from './interfaces'
 
-export class UserDataSource extends DataSource implements IUserDataSource {    
+export class PrismaUserDataSource extends DataSource implements UserDataSource {    
     constructor(private readonly prisma: PrismaClient){
         super()
     }
@@ -35,7 +35,7 @@ export class UserDataSource extends DataSource implements IUserDataSource {
     }
     
     async createdFriendShip(newFriendShip: GqlInterfaces.GqlMutationCreateFriendShipArgs): Promise<GqlInterfaces.GqlUser>{
-        const myUser = await this.prisma.user.findFirst({
+        const friendOf = await this.prisma.user.findFirstOrThrow({
            where: {
                id: newFriendShip.friendOf
            },
@@ -43,37 +43,31 @@ export class UserDataSource extends DataSource implements IUserDataSource {
                friendOf: true            
            }
        })  
-       if(myUser == null){
-           throw new ApolloError("user doent exist!");        
-       }
-       const user = await this.prisma.user.findFirstOrThrow({
+       await this.prisma.user.findFirstOrThrow({
+        select: {
+            id: true
+        },
            where: {
                id: newFriendShip.friendWith
            }        
        })
-       if(user == null){
-           throw new ApolloError("friend doesn exist");        
-       }
-       if(myUser.friendOf == null){
-           return this.AddFriendShip(myUser, newFriendShip)
-       }
-       const isFriend = myUser.friendOf.find(item => item.friendWithId == newFriendShip.friendWith)
-       if(typeof isFriend == 'undefined'){
-           return this.AddFriendShip(myUser, newFriendShip)
+       if(friendOf.friendOf == null){
+           return this.AddFriendShip(friendOf, newFriendShip)
+       }       
+       const isFriend = friendOf.friendOf.some(item => item.friendWithId == newFriendShip.friendWith)
+       if(!isFriend){
+           return this.AddFriendShip(friendOf, newFriendShip)
        }else{
            throw new ApolloError("users are friends!");        
        }    
    }
 
    async getUserByName(obj: GqlInterfaces.GqlQueryGetUserByNameArgs):Promise<GqlInterfaces.GqlUser> {
-        const user = await this.prisma.user.findFirst({
+        const user = await this.prisma.user.findFirstOrThrow({
             where: {
                 name: obj.name
             }
         })
-        if(user == null){
-            return null
-        }
         return exportUser(user)
     }
 

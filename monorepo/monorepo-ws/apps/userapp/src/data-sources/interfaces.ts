@@ -1,7 +1,7 @@
 import * as GqlInterfaces  from "../resolvers/interfaces";
 import {DataSource} from 'apollo-datasource'
 
-export interface IUserDataSource extends DataSource {
+export interface UserDataSource extends DataSource {
     getAllUsers: () => Promise<GqlInterfaces.GqlUser[]>
     getUserById: (obj: GqlInterfaces.GqlQueryGetUserByIdArgs) => Promise<GqlInterfaces.GqlUser>
     addUser: (user: GqlInterfaces.GqlMutationCreateUserArgs) => Promise<GqlInterfaces.GqlUser>
