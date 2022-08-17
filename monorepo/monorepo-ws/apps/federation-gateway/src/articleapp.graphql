@@ -1,0 +1,43 @@
+directive @key(fields: _FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+
+directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external(reason: String) on OBJECT | FIELD_DEFINITION
+
+extend type User
+  @key(fields: "id")
+{
+  id: ID! @external
+  articles: [Article]
+}
+
+type Article {
+  id: ID!
+  title: String!
+  authorId: ID!
+}
+
+type Query {
+  getAllArticles: [Article!]!
+  articles: [Article]
+  _entities(representations: [_Any!]!): [_Entity]!
+  _service: _Service!
+}
+
+type Mutation {
+  createArticle(title: String!, authorId: ID!): Article!
+}
+
+scalar _FieldSet
+
+scalar _Any
+
+type _Service {
+  sdl: String
+}
+
+union _Entity = User

@@ -1,0 +1,9 @@
+subgraphs:
+  users:
+    routing_url: http://localhost:8080/graphql
+    schema:
+      file: ./userapp.graphql
+  articles:
+    routing_url: http://localhost:9000/graphql
+    schema:
+      file: ./articleapp.graphql
