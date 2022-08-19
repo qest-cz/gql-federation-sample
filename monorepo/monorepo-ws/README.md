@@ -114,6 +114,36 @@ Now we can import `PrismaClient` from this our lib.
 
 My prisma client lib example you can find in `lib/prisma-article-app-client`
 
+# Federation gateway
+  If we want to run federation gateway when no run other application (subraphs) we can run it with supergraph.
+
+  For creating supergraph i created separate application `update-supergraph-app`. This app is trying create supergraph in interval. 
+
+  When we want to create supergraph, we have to prepare all subgraphs. I solve this with `rover subgraph introspect app_url > new_file.graphql`.
+
+  When we run 
+
+  app have to running.
+
+  when we create all subraphs we have to create  config file for gateway. In src we create `supergraph-config.yml` where are define subgraphs and app url.
+
+  subgraphs:
+    users:
+      routing_url: http://localhost:8080/graphql
+      schema:
+        file: ./services/userapp.graphql
+      ....next apps
+
+  No we can create super graph.
+  `rover supergraph compose --config  'app_url' > new_file.graphql`
+
+  # update-supergraph-app
+  Application in interval try create all subgraphs. When some of apps aren´t running, remove this files. When are all apps running and are created subgraphs it try create supergraph. When is supergraph created, supergraph compare with actual version supergraph of gateway. When is diferent, update file 'supergraph.graphql' with content of new file. If new supergraph is same with actual supergraph, remove this new file becase are duplicated. 
+
+# Gateway function
+We tryload last supergraph, creta new gateway whith loaded schema. After run listen on server we run period function which check altual supergraphs. When is new function change schema in gateway and restart server.
+
+
 
 
 
