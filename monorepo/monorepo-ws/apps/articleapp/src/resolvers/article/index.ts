@@ -1,4 +1,4 @@
-import { GqlMutationCreateArticleArgs } from '../interfaces';
+import { GqlMutationCreateArticleArgs, GqlQueryGetArticleByIdArgs } from '../interfaces';
 import { Context as ApolloContext } from 'apollo-server-core';
 import { DataSources } from '../../main';
 
@@ -13,6 +13,9 @@ export const article = {
     },
     articles: (_, __, c: Context) => {
       return c.dataSources.article.getAllArticles()
+    },
+    getArticleById(_, args: GqlQueryGetArticleByIdArgs, c: Context){
+      return c.dataSources.article.getArticleById(args)
     }    
   },
   Mutation: {

@@ -34,6 +34,12 @@ export interface GqlQuery {
   __typename?: 'Query';
   articles: Maybe<Array<Maybe<GqlArticle>>>;
   getAllArticles: Array<GqlArticle>;
+  getArticleById: GqlArticle;
+}
+
+
+export interface GqlQueryGetArticleByIdArgs {
+  id: Scalars['ID'];
 }
 
 export interface GqlUser {

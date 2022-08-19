@@ -1,6 +1,6 @@
 import { Article, PrismaClient } from "@monorepo-ws/prisma-article-app-client";
 import { DataSource } from "apollo-datasource";
-import { GqlArticle, GqlMutationCreateArticleArgs } from "../resolvers/interfaces";
+import { GqlArticle, GqlMutationCreateArticleArgs, GqlQueryGetArticleByIdArgs } from "../resolvers/interfaces";
 import { IArticleDataSource as ArticleDataSource } from "./interfaces";
 import { exportArticle, exportArticles } from "../services/article-services"
 
@@ -24,12 +24,21 @@ export class PrismaArticleDataSource extends DataSource implements ArticleDataSo
         return exportArticle(article)
      }
 
-     async GetArticleByAuthorId(id: number) : Promise<GqlArticle[]> {
+    async GetArticleByAuthorId(id: number) : Promise<GqlArticle[]> {
         const articles = await this.prisma.article.findMany({
             where: {
                 authorId: Number(id)
             }
         })
         return exportArticles(articles)
-     }
+    }
+
+    async getArticleById(idObj: GqlQueryGetArticleByIdArgs) : Promise<GqlArticle> {
+        const article = await this.prisma.article.findFirstOrThrow({
+            where: {
+                id: Number(idObj.id)
+            }
+        })
+        return exportArticle(article)
+    }
 }

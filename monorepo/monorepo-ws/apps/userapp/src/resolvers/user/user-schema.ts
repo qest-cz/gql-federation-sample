@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export const userSchema = gql`
+  directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+  
   type User @key(fields: "id") {
     id: ID!
     name: String!

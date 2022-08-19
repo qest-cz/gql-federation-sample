@@ -1,7 +1,7 @@
 import { testServer } from '@monorepo-ws/server';
 import { gql } from 'apollo-server';
 import { modules } from './resolvers/modules';
-import { GqlArticle, GqlMutationCreateArticleArgs, GqlUser } from './resolvers/interfaces';
+import { GqlArticle, GqlMutationCreateArticleArgs, GqlQueryGetArticleByIdArgs, GqlUser } from './resolvers/interfaces';
 import {DataSource as ApolloDataSources} from 'apollo-datasource'
 import { IArticleDataSource } from './data-sources/interfaces';
 import { DataSources } from './main'; 
@@ -48,4 +48,9 @@ class FakePrismaArticleDataSource extends ApolloDataSources implements IArticleD
       const articles = testArticles.filter(x => x.authorId == id)
       return exportArticles(articles)
     }
+
+    async getArticleById(idOnj: GqlQueryGetArticleByIdArgs): Promise<GqlArticle> {
+      const article = testArticles.find(x => x.id == idOnj.id)  
+      return exportArticle(article)
+    };
 }
