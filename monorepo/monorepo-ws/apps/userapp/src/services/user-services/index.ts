@@ -4,11 +4,11 @@ import * as GqlInterfaces from "../../resolvers/interfaces"
 
 export const prisma = new PrismaClient()
 
-export function exportUser(user: User): GqlInterfaces.GqlUser {
+export const exportUser = (user: User): GqlInterfaces.GqlUser => {
     return {...user, friends: []}
 }
 
-export function exportUsers(users: User[]): GqlInterfaces.GqlUser[]{
+export const exportUsers = (users: User[]): GqlInterfaces.GqlUser[] => {
     return users.map(exportUser)
 }
 

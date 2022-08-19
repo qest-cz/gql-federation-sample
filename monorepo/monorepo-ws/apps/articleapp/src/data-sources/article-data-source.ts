@@ -1,7 +1,7 @@
 import { Article, PrismaClient } from "@monorepo-ws/prisma-article-app-client";
 import { DataSource } from "apollo-datasource";
 import { GqlArticle, GqlMutationCreateArticleArgs, GqlQueryGetArticleByIdArgs } from "../resolvers/interfaces";
-import { IArticleDataSource as ArticleDataSource } from "./interfaces";
+import { ArticleDataSource as ArticleDataSource } from "./interfaces";
 import { exportArticle, exportArticles } from "../services/article-services"
 
 export class PrismaArticleDataSource extends DataSource implements ArticleDataSource{

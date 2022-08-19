@@ -3,10 +3,10 @@ import { GqlArticle, GqlMutationCreateArticleArgs } from '../../resolvers/interf
 
 export const prisma = new PrismaClient();
 
-export function exportArticle(article: Article): GqlArticle {
+export const exportArticle = (article: Article): GqlArticle => {
   return { ...article };
 }
 
-export function exportArticles(articles: Article[]): GqlArticle[] {
+export const exportArticles = (articles: Article[]): GqlArticle[] => {
   return articles.map(exportArticle);
 }
