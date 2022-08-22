@@ -12,7 +12,7 @@ export const checkAndRemoveCreatedFile = (path: string) => {
     }
 }
 
-const removeFile = (path: string) => {
+export const removeFile = (path: string) => {
     fs.unlink(path, (err) => {
         if(err){
             throw err

@@ -1,9 +1,8 @@
-import { updateSuperGraph } from "./services"
+import { SupergraphManager } from "./services"
+import { LocalStorageManager } from "./services/local-storage-manager"
+import { PrismaManager } from "./services/prisma-manager"
 
-const update = async () =>  {
-    await updateSuperGraph()
-}
-
-const runUpdate = setInterval(update, Number(process.env.INTERVAL))
+const manager: SupergraphManager = new PrismaManager()
+const runUpdate = setInterval(() => manager.updateSupergraph(), Number(process.env.INTERVAL))
 
 

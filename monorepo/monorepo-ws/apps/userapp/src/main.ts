@@ -1,5 +1,5 @@
 import { runServer } from '@monorepo-ws/server';
-import { PrismaUserDataSource } from './data-sources/user-data-source';
+import { PrismaUserDataSource } from './data-sources/prisma-user-data-source';
 import { modules } from './resolvers/modules';
 import { Context } from 'apollo-server-core';
 import { DataSources as ApolloDataSources } from 'apollo-server-core/dist/graphqlOptions';

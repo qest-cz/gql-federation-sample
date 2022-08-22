@@ -141,7 +141,7 @@ My prisma client lib example you can find in `lib/prisma-article-app-client`
   Application in interval try create all subgraphs. When some of apps aren´t running, remove this files. When are all apps running and are created subgraphs it try create supergraph. When is supergraph created, supergraph compare with actual version supergraph of gateway. When is diferent, update file 'supergraph.graphql' with content of new file. If new supergraph is same with actual supergraph, remove this new file becase are duplicated. 
 
 # Gateway function
-We tryload last supergraph, creta new gateway whith loaded schema. After run listen on server we run period function which check altual supergraphs. When is new function change schema in gateway and restart server.
+We tryload last supergraph, creta new gateway whith loaded schema. After run listen on server we run period function which check actual supergraphs. When is new, function change schema in gateway and restart server.
 
 
 
