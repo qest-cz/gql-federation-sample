@@ -10,31 +10,31 @@ interface Context extends ApolloContext{
 
 export const user = {
   Query: {
-    getAllUsers(_, __, c: Context) { 
-      return c.dataSources.user.getAllUsers()
+    getAllUsers(_, __, {dataSources: {user}}: Context) { 
+      return user.getAllUsers()
     },
-    getUserByName(_, args: GqlInterfaces.GqlQueryGetUserByNameArgs, c: Context) {
-      return c.dataSources.user.getUserByName(args)
+    getUserByName(_, args: GqlInterfaces.GqlQueryGetUserByNameArgs, {dataSources: {user}}: Context) {
+      return user.getUserByName(args)
     },
-    users(_, __, c: Context) {
-      return c.dataSources.user.getAllUsers();
+    users(_, __, {dataSources: {user}}: Context) {
+      return user.getAllUsers();
     },
-    getUserById(_, args: GqlInterfaces.GqlQueryGetUserByIdArgs, c: Context){
-      return c.dataSources.user.getUserById(args)
+    getUserById(_, args: GqlInterfaces.GqlQueryGetUserByIdArgs, {dataSources: {user}}: Context){
+      return user.getUserById(args)
     }
   },
   User: {
-    friends: (parent: GqlInterfaces.GqlUser, __, c: Context) => {
-      return c.dataSources.user.getFriends(Number(parent.id))
+    friends: (parent: GqlInterfaces.GqlUser, __, {dataSources: {user}}: Context) => {
+      return user.getFriends(Number(parent.id))
     },
       
   },
   Mutation: {
-    createUser(_, args: GqlInterfaces.GqlMutationCreateUserArgs, c: Context) {  
-      return c.dataSources.user.addUser(args)
+    createUser(_, args: GqlInterfaces.GqlMutationCreateUserArgs, {dataSources: {user}}: Context) {  
+      return user.addUser(args)
     },
-    createFriendShip(_, args: GqlInterfaces.GqlMutationCreateFriendShipArgs, c: Context){
-      return c.dataSources.user.createdFriendShip(args)
+    createFriendShip(_, args: GqlInterfaces.GqlMutationCreateFriendShipArgs, {dataSources: {user}}: Context){
+      return user.createdFriendShip(args)
     },
   },
 };

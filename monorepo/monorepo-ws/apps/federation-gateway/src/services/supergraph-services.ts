@@ -1,13 +1,14 @@
 import { exec } from 'child_process'
 import {promisify} from "util"
 import * as fs from 'fs'
+import * as config from '../configuration/config'
 
 const execPromisifed = promisify(exec)
 
 export const tryCreatePartOfSupergraph = async() : Promise<Buffer> => {
 
-        await createSubgraph(process.env.URL_USER_APP, process.env.SUBGRAPH_USER_APP)
-        await createSubgraph(process.env.URL_ARTICLE_APP, process.env.SUBGRAPH_ARTICLE_APP)          
+        await createSubgraph(config.urlUserApp, config.subgraphUserApp)
+        await createSubgraph(config.urlArticleApp, config.subgraphArticleApp)          
     try {
         return await createPartOfSupergraph()
     } catch (error) {
@@ -16,7 +17,7 @@ export const tryCreatePartOfSupergraph = async() : Promise<Buffer> => {
 }
 
 const createSubgraph = async (url: string, fileName: string) => {
-    const command: string = "rover subgraph introspect "+ url + " > " + process.env.SUBGRAPHS_LOCATION + fileName
+    const command: string = "rover subgraph introspect "+ url + " > " + config.subraphsLocation + fileName
     try{
         await execPromisifed(command)        
     } catch(err){
@@ -24,18 +25,18 @@ const createSubgraph = async (url: string, fileName: string) => {
 }
 
 const createPartOfSupergraph = async (): Promise<Buffer> => {
-    const command: string = "rover supergraph compose --config " + process.env.SUPERGRAPH_CONFIG_YML + " > " + process.env.SUPERGRAPH_FILE
+    const command: string = "rover supergraph compose --config " + config.supergraphConfigYml + " > " + config.superGraphFile
     try{
         await execPromisifed(command)
-        removeFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_USER_APP)
-        removeFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_ARTICLE_APP)
+        removeFile(config.subraphsLocation + config.subgraphUserApp)
+        removeFile(config.subraphsLocation + config.subgraphArticleApp)
         return new Promise<Buffer>((resolve) => {
-            resolve((fs.readFileSync(process.env.SUPERGRAPH_FILE)))
+            resolve((fs.readFileSync(config.superGraphFile)))
         })
     } catch( err) {
-        removeFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_USER_APP)
-        removeFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_ARTICLE_APP)
-        removeFile(process.env.SUPERGRAPH_FILE)
+        removeFile(config.subraphsLocation + config.subgraphUserApp)
+        removeFile(config.subraphsLocation + config.subgraphArticleApp)
+        removeFile(config.superGraphFile)
         throw new Error("Supergraph doesn't created!")
     }
 }

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@monorepo-ws/prisma-federation-gateway-client";
-import { resolve } from "path";
+import { superGraphFileName } from "../configuration/config";
 import { SupergraphStorageManager } from "./interfaces";
 
 export const prisma = new PrismaClient()
@@ -13,7 +13,7 @@ export class PrismaManager implements SupergraphStorageManager{
                 file: true
             },
             where: {
-                id: process.env.SUPERGRAPH_FILE_NAME
+                id: superGraphFileName
             }
         })
         return new Promise<Buffer>((resolve) => {

@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import {promises as fsPromises} from 'fs';
+import { supergraphFile } from '../configuration/config';
 
 export const checkAndRemoveCreatedFile = (path: string) => {
     try {
@@ -22,10 +23,10 @@ export const removeFile = (path: string) => {
 
 export const checkNewSupergraph = async (newFile: string) => {
     const newSuperGraph = await fsPromises.readFile(newFile)
-    const currentSupergraph = await fsPromises.readFile(process.env.SUPERGRAPH_FILE)
+    const currentSupergraph = await fsPromises.readFile(supergraphFile)
     if(newSuperGraph.equals(currentSupergraph)) {
         return removeFile(newFile)
     }
-    fsPromises.writeFile(process.env.SUPERGRAPH_FILE, newSuperGraph)
+    fsPromises.writeFile(supergraphFile, newSuperGraph)
 }
 

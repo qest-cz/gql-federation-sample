@@ -4,6 +4,7 @@ import {promises as fsPromises} from 'fs';
 import { createAllSubgraphs, createSupergraph, removeAllSubgraphFiles } from "./supergraph-services";
 import { removeFile } from "./file-services";
 import path = require("path");
+import * as config from '../configuration/config'
 
 const prisma = new PrismaClient()
 
@@ -25,15 +26,15 @@ export class PrismaManager implements SupergraphManager {
     private async downloadCurrentSupergraph(){
         const supergraph = await prisma.supergraph.findFirstOrThrow({
             where: {
-                id: process.env.SUPERGRAPH_FILE_NAME
+                id: config.supergraphFileName
             }
         })
-        fsPromises.writeFile(process.env.SUPERGRAPH_FILE, supergraph.file)
+        fsPromises.writeFile(config.supergraphFile, supergraph.file)
     }
 
     private async checkNewSupergraph(newFile: string){
         const newSuperGraph = await fsPromises.readFile(newFile)
-        const currentSupergraph = await fsPromises.readFile(process.env.SUPERGRAPH_FILE)
+        const currentSupergraph = await fsPromises.readFile(config.supergraphFile)
         if(newSuperGraph.equals(currentSupergraph)) {
             return this.removeAllFiles(newFile)
         }
@@ -44,7 +45,7 @@ export class PrismaManager implements SupergraphManager {
 
     private removeAllFiles(newFile: string){
         removeFile(newFile)
-        removeFile(process.env.SUPERGRAPH_FILE)
+        removeFile(config.supergraphFile)
     }
 
     private async addSupergraphToDB(newFile: string, data: Buffer){
@@ -62,7 +63,7 @@ export class PrismaManager implements SupergraphManager {
                 file: data.toString()
             },
             where: {
-                id: process.env.SUPERGRAPH_FILE_NAME
+                id: config.supergraphFileName
             }
         })
     }

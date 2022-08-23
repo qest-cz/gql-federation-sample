@@ -8,19 +8,19 @@ interface Context extends ApolloContext{
 
 export const article = {
   Query: {
-    getAllArticles(_, __, c: Context) {
-      return c.dataSources.article.getAllArticles();
+    getAllArticles(_, __, {dataSources:{article}}: Context) {
+      return article.getAllArticles();
     },
-    articles: (_, __, c: Context) => {
-      return c.dataSources.article.getAllArticles()
+    articles: (_, __, {dataSources:{article}}: Context) => {
+      return article.getAllArticles()
     },
-    getArticleById(_, args: GqlQueryGetArticleByIdArgs, c: Context){
-      return c.dataSources.article.getArticleById(args)
+    getArticleById(_, args: GqlQueryGetArticleByIdArgs, {dataSources:{article}}: Context){
+      return article.getArticleById(args)
     }    
   },
   Mutation: {
-    createArticle(_, newArticle: GqlMutationCreateArticleArgs, c: Context){
-        return c.dataSources.article.createArticle(newArticle)
+    createArticle(_, newArticle: GqlMutationCreateArticleArgs, {dataSources:{article}}: Context){
+        return article.createArticle(newArticle)
     }
   },
 };

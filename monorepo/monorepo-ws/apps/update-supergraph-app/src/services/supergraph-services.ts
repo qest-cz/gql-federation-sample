@@ -1,13 +1,14 @@
 import { exec } from 'child_process'
 import {promisify} from "util"
 import { checkAndRemoveCreatedFile, checkNewSupergraph } from './file-services'
+import * as config from '../configuration/config'
 
 const execPromisifed = promisify(exec)
 
 export const createSupergraph = async () => {
-    const superGraphsDirectoru: string = process.env.SUPERGRAPH_LOCATION
+    const superGraphsDirectoru: string = config.supergraphLocation
     const newFilePath: string = superGraphsDirectoru + "supergraph" + Date.now().toString() + ".graphql"
-    const command: string = "rover supergraph compose --config " + process.env.SUPERGRAPH_CONFIG_YML + " > " + newFilePath
+    const command: string = "rover supergraph compose --config " + config.supergraphConfigYml + " > " + newFilePath
     try{
         await execPromisifed(command)
         return new Promise<String>((resolve) => {
@@ -16,14 +17,14 @@ export const createSupergraph = async () => {
     } catch( err) {
         checkAndRemoveCreatedFile(newFilePath)
         removeAllSubgraphFiles()
-        throw new Error("Creating supergraph failed!")
+        throw new Error(err)
     }
 }
 
  export const createAllSubgraphs = async () => {
     try {
-        await createSubgraph(process.env.URL_USER_APP, process.env.SUBGRAPH_USER_APP)
-        await createSubgraph(process.env.URL_ARTICLE_APP, process.env.SUBGRAPH_ARTICLE_APP)    
+        await createSubgraph(config.urlUserApp, config.subgraphUserApp)
+        await createSubgraph(config.urlArticleApp, config.subgraphArticleApp)    
     } catch (err) {
         await removeAllSubgraphFiles()
         throw new Error("all apps aren't running!")
@@ -31,7 +32,7 @@ export const createSupergraph = async () => {
 }
 
  export const createSubgraph = async (url: string, fileName: string) => {
-    const command: string = "rover subgraph introspect "+ url + " > " + process.env.SUBGRAPHS_LOCATION + fileName
+    const command: string = "rover subgraph introspect "+ url + " > " + config.subgraphsLocation + fileName
     try {
         await execPromisifed(command)        
     } catch (error) {
@@ -40,6 +41,6 @@ export const createSupergraph = async () => {
 }
 
 export const removeAllSubgraphFiles = () => {
-    checkAndRemoveCreatedFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_USER_APP)
-    checkAndRemoveCreatedFile(process.env.SUBGRAPHS_LOCATION + process.env.SUBGRAPH_ARTICLE_APP)
+    checkAndRemoveCreatedFile(config.subgraphsLocation + config.subgraphUserApp)
+    checkAndRemoveCreatedFile(config.subgraphsLocation + config.subgraphArticleApp)
 }
