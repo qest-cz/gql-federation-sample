@@ -94,7 +94,7 @@ Teams using Nx gain the advantage of building full-stack applications with their
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
 ## How to add prisma to app
-We have to create separate lib of prisma client for every using app. All npm commands have to set to global `package.json` of monorepo. Here is link where is tutorial what we have to install. `https://www.prisma.io/docs/getting-started/quickstart`
+We have to create separate lib of prisma client for every using apps. All npm commands have to set to global `package.json` of monorepo. Here is link where is tutorial what we have to install. `https://www.prisma.io/docs/getting-started/quickstart`
 
 create lib:
 
@@ -114,34 +114,34 @@ Now we can import `PrismaClient` from this our lib.
 
 My prisma client lib example you can find in `lib/prisma-article-app-client`
 
-# Federation gateway
+# Federation gateway app
   If we want to run federation gateway when no run other application (subraphs) we can run it with supergraph.
 
-  For creating supergraph i created separate application `update-supergraph-app`. This app is trying create supergraph in interval. 
+  For creating supergraph I created separate application `update-supergraph-app`. This app is trying create new supergraphs in interval. 
 
   When we want to create supergraph, we have to prepare all subgraphs. I solve this with `rover subgraph introspect app_url > new_file.graphql`.
-
-  When we run 
-
-  app have to running.
-
-  when we create all subraphs we have to create  config file for gateway. In src we create `supergraph-config.yml` where are define subgraphs and app url.
+  when we create all subraphs we have to create config file for gateway. In src we create `supergraph-config.yml` where are define subgraphs and routing url.
 
   subgraphs:
     users:
       routing_url: http://localhost:8080/graphql
       schema:
         file: ./services/userapp.graphql
-      ....next apps
+    ....next apps
 
   No we can create super graph.
   `rover supergraph compose --config  'app_url' > new_file.graphql`
 
   # update-supergraph-app
-  Application in interval try create all subgraphs. When some of apps aren´t running, remove this files. When are all apps running and are created subgraphs it try create supergraph. When is supergraph created, supergraph compare with actual version supergraph of gateway. When is diferent, update file 'supergraph.graphql' with content of new file. If new supergraph is same with actual supergraph, remove this new file becase are duplicated. 
+  Application in interval try create all subgraphs based on the previous command steps. When some of apps aren´t running, remove this files. When are all apps running and are created subgraphs, it try create supergraph. When is supergraph created, supergraph compare with actual supergraph version of gateway whitch is saved in `SupergraphManager` from `libs/supergraph-manager`. When is diferent, this `lib` update file `supergraph.graphql` with content of new file and save copy to selected storage. After all oparations are files creaced by rover deleted (no in selected storage). 
 
-# Gateway function
-We tryload last supergraph, creta new gateway whith loaded schema. After run listen on server we run period function which check actual supergraphs. When is new, function change schema in gateway and restart server.
+  # libs/supergraph-manager
+  This lib ensure save, get, update of supergraphs from selected storage (local-storage, DB (Prisma)).
+
+# How to run federation gateway
+Before we start this application we have to set configuration for storage. We can chose local storage or DB (Prisma) in params main function. In main function is run function `runApp` from `ServerManager`. In this function is started server. In env is set interval for check supergraphs. When is find change, server is restarded with new supergraph.
+
+
 
 
 

@@ -4,6 +4,7 @@ import {promisify} from "util"
 import { checkAndRemoveCreatedFile } from './file-services'
 import { SupergraphManager } from '@monorepo-ws/supergraph-manager'
 import {promises as fsPromises} from 'fs';
+import { logger } from 'libs/server/src/logger'
 
 const execPromisifed = promisify(exec)
 
@@ -19,8 +20,8 @@ export class RoverManager {
             const newSupergraph: Buffer = await fsPromises.readFile(String(newFilePath))   
             await checkAndRemoveCreatedFile(String(newFilePath))     
             await this.supergraphManager.saveSupergraph(newSupergraph)
-        } catch (error) {         
-            console.log("nevytvoreno: " + error)   
+        } catch (error) {  
+            logger.info("nevytvoreno: " + error)       
         }
     }
 
