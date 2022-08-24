@@ -1,13 +1,13 @@
 
 import { ServerManager } from './services/server-manager';
 import { superGraphFile, superGraphFileName, supergraphLocation } from './configuration/config';
-import { Configuration, LocalStorageManager, PrismaManager, Storage, SupergraphManager, StorageManager } from '@monorepo-ws/supergraph-manager';
+import { Configuration, LocalStorageManager, PrismaManager, Storage, SupergraphManager } from '@monorepo-ws/supergraph-manager';
 
 
 
 const main = async (storage: Storage) => {  
-  const storageManager: StorageManager = createStorageManager(storage)
-  const serverManager: ServerManager = new ServerManager(storageManager)
+  const supergraphManager: SupergraphManager = createSupergraphManager(storage)
+  const serverManager: ServerManager = new ServerManager(supergraphManager)
   await serverManager.runApp()
 }
 
@@ -21,10 +21,9 @@ const getConfiguration = (): Configuration => {
   return configuration
 }
 
-const createStorageManager = (storage: Storage): StorageManager => {
+const createSupergraphManager = (storage: Storage): SupergraphManager => {
   const configuration: Configuration = getConfiguration()
-  const storageType: SupergraphManager = storage == Storage.Local ? new LocalStorageManager(configuration) : new PrismaManager(configuration)
-  return new StorageManager(storageType)
+  return storage == Storage.Local ? new LocalStorageManager(configuration) : new PrismaManager(configuration)
 }
 
 main(Storage.Local)

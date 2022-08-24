@@ -2,14 +2,14 @@ import { ApolloGateway } from "@apollo/gateway";
 import { ApolloServer } from "apollo-server";
 import { interval, port } from "../configuration/config";
 import { tryCreatePartOfSupergraph } from "./supergraph-services";
-import { StorageManager } from "@monorepo-ws/supergraph-manager"
+import { SupergraphManager } from "@monorepo-ws/supergraph-manager"
 
 
 export class ServerManager {
     gateway: ApolloGateway
     server: ApolloServer
 
-    constructor(private readonly storageManager: StorageManager){
+    constructor(private readonly supergraphManager: SupergraphManager){
     }
 
     async runApp() {
@@ -22,7 +22,7 @@ export class ServerManager {
         if(!this.server){
             console.log("first start")
             try {
-                const superGraphSchema: Buffer = await this.storageManager.supergraphManager.getSupergraph()
+                const superGraphSchema: Buffer = await this.supergraphManager.getSupergraph()
                 return await this.startServer(superGraphSchema.toString())
             } catch (error) {
                 const superGraphSchema: Buffer =  await tryCreatePartOfSupergraph() 
@@ -30,9 +30,9 @@ export class ServerManager {
             }
         }
         try {
-            const superGraphSchema = await this.storageManager.supergraphManager.getSupergraph()
-            if(!this.storageManager.supergraphManager.checkSupergraph(superGraphSchema)){
-                this.storageManager.supergraphManager.setActualSupergraph(superGraphSchema)
+            const superGraphSchema = await this.supergraphManager.getSupergraph()
+            if(!this.supergraphManager.checkSupergraph(superGraphSchema)){
+                this.supergraphManager.setActualSupergraph(superGraphSchema)
                 console.log("restart! New supergraph.")
                 await this.server.stop()                
                 this.startServer(superGraphSchema.toString())

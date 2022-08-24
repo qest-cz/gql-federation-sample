@@ -2,13 +2,13 @@ import * as config from '../configuration/config'
 import { exec } from 'child_process'
 import {promisify} from "util"
 import { checkAndRemoveCreatedFile } from './file-services'
-import { StorageManager } from '@monorepo-ws/supergraph-manager'
+import { SupergraphManager } from '@monorepo-ws/supergraph-manager'
 import {promises as fsPromises} from 'fs';
 
 const execPromisifed = promisify(exec)
 
 export class RoverManager {
-    constructor(private readonly storageManager: StorageManager){        
+    constructor(private readonly supergraphManager: SupergraphManager){        
     }
 
     async updateSupergraph() {
@@ -18,7 +18,7 @@ export class RoverManager {
             await this.removeAllSubgraphFiles()
             const newSupergraph: Buffer = await fsPromises.readFile(String(newFilePath))   
             await checkAndRemoveCreatedFile(String(newFilePath))     
-            await this.storageManager.supergraphManager.saveSupergraph(newSupergraph)
+            await this.supergraphManager.saveSupergraph(newSupergraph)
         } catch (error) {         
             console.log("nevytvoreno: " + error)   
         }
