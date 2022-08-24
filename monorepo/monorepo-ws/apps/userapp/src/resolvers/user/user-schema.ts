@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export const userSchema = gql`
+  directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+  
   type User @key(fields: "id") {
     id: ID!
     name: String!
@@ -15,10 +17,12 @@ export const userSchema = gql`
     getAllUsers: [User!]!
     getUserByName(name: String!): User
     getUserByNameOrAge(name: String, age: Int): [User]!
+    getUserById(id: Int): User!
   }
 
   #Mutations
   type Mutation {
-    createUser(id: ID!, name: String!, age: Int!, married: Boolean!): User!
+    createUser(name: String!, age: Int!, married: Boolean!): User!
+    createFriendShip(friendOf: Int!, friendWith: Int!): User!
   }
 `;

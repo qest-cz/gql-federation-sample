@@ -15,6 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@monorepo-ws/prisma-article-app-client": [
+        "libs/prisma-article-app-client/src/index.ts"
+      ],
+      "@monorepo-ws/prisma-federation-gateway-client": [
+        "libs/prisma-federation-gateway-client/src/index.ts"
+      ],
+      "@monorepo-ws/prisma-user-app-client": [
+        "libs/prisma-user-app-client/src/index.ts"
+      ],
       "@monorepo-ws/server": ["libs/server/src/index.ts"],
       "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"]
     }

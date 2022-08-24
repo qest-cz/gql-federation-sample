@@ -1,18 +1,26 @@
-import { articles } from '../../fake-data/fake-data';
-import { Article } from '../../services/article-services/interfaces';
+import { GqlMutationCreateArticleArgs, GqlQueryGetArticleByIdArgs } from '../interfaces';
+import { Context as ApolloContext } from 'apollo-server-core';
+import { DataSources } from '../../main';
+
+interface Context extends ApolloContext{
+  dataSources: DataSources 
+}
 
 export const article = {
   Query: {
-    getAllArticles() {
-      return getArticles();
+    getAllArticles(_, __, {dataSources:{article}}: Context) {
+      return article.getAllArticles();
     },
-    articles() {
-      return articles;
+    articles: (_, __, {dataSources:{article}}: Context) => {
+      return article.getAllArticles()
     },
+    getArticleById(_, args: GqlQueryGetArticleByIdArgs, {dataSources:{article}}: Context){
+      return article.getArticleById(args)
+    }    
   },
-  Mutation: {},
+  Mutation: {
+    createArticle(_, newArticle: GqlMutationCreateArticleArgs, {dataSources:{article}}: Context){
+        return article.createArticle(newArticle)
+    }
+  },
 };
-
-function getArticles(): Article[] {
-  return articles;
-}

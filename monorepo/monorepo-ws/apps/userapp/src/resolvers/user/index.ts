@@ -1,41 +1,43 @@
-import { users, friendships } from '../../fake-data/fake-data';
-import { User } from '../../services/user-services/interfaces';
-import { GqlUser } from '../interfaces';
+
+import  * as GqlInterfaces from '../interfaces';
+import { Context as ApolloContext } from 'apollo-server-core';
+import { DataSources } from '../../main';
+import { Console } from 'console';
+ 
+interface Context extends ApolloContext{
+  dataSources: DataSources 
+}
 
 export const user = {
   Query: {
-    getAllUsers() {
-      return getUsers();
+    getAllUsers(_, __, {dataSources: {user}}: Context) { 
+      return user.getAllUsers()
     },
-    getUserByName(_, args: string) {
-      return { id: 12, name: args, age: 34, married: false };
+    getUserByName(_, args: GqlInterfaces.GqlQueryGetUserByNameArgs, {dataSources: {user}}: Context) {
+      return user.getUserByName(args)
     },
-    users() {
-      return users;
+    users(_, __, {dataSources: {user}}: Context) {
+      return user.getAllUsers();
     },
+    getUserById(_, args: GqlInterfaces.GqlQueryGetUserByIdArgs, {dataSources: {user}}: Context){
+      return user.getUserById(args)
+    }
   },
   User: {
-    friends: (parent: User) => getFriend(Number(parent.id)),
+    friends: (parent: GqlInterfaces.GqlUser, __, {dataSources: {user}}: Context) => {
+      return user.getFriends(Number(parent.id))
+    },
+      
   },
   Mutation: {
-    createUser(_, args: GqlUser) {
-      return addUser(args);
+    createUser(_, args: GqlInterfaces.GqlMutationCreateUserArgs, {dataSources: {user}}: Context) {  
+      return user.addUser(args)
+    },
+    createFriendShip(_, args: GqlInterfaces.GqlMutationCreateFriendShipArgs, {dataSources: {user}}: Context){
+      return user.createdFriendShip(args)
     },
   },
 };
 
-export function getUsers(): User[] {
-  return users;
-}
 
-function addUser(user: User): User {
-  const newUser: User = user;
-  users.push(newUser);
-  return newUser;
-}
 
-function getFriend(id: number): GqlUser[] {
-  return friendships
-    .filter((item) => item.friendOne == id)
-    .map((x) => <GqlUser>users.find((user) => x.userTwo === user.id));
-}

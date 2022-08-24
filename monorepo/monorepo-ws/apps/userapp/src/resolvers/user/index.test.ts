@@ -1,13 +1,5 @@
 import { gql } from 'apollo-server';
 import { server as testServer } from '../../test-utils';
-import { getUsers } from './index';
-
-describe('test users', () => {
-  test('count array is 4', () => {
-    const len: number = getUsers().length;
-    expect(len).toBe(4);
-  });
-});
 
 const query = gql`
   query {
@@ -48,33 +40,16 @@ describe('user resolver', () => {
           friends: [
             {
               name: expect.any(String),
-            },
-            {
-              name: expect.any(String),
-            },
-          ],
+            }
+          ],          
         },
         {
           id: expect.any(String),
           name: expect.any(String),
           married: expect.any(Boolean),
           age: expect.any(Number),
-          friends: [],
-        },
-        {
-          id: expect.any(String),
-          name: expect.any(String),
-          married: expect.any(Boolean),
-          age: expect.any(Number),
-          friends: [],
-        },
-        {
-          id: expect.any(String),
-          name: expect.any(String),
-          married: expect.any(Boolean),
-          age: expect.any(Number),
-          friends: [],
-        },
+          friends: [],          
+        }
       ],
     });
   });
@@ -91,5 +66,6 @@ describe('user resolver', () => {
         age: expect.any(Number),
       },
     });
-  });
+  }
+  );
 });

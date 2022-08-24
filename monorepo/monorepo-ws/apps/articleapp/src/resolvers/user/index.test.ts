@@ -32,8 +32,8 @@ describe('user resolver', () => {
             id: expect.any(String),
             title: expect.any(String),
             authorId: expect.any(String),
-          },
-        ],
+          }
+        ]
       },
     });
   });

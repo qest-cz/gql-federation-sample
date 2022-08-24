@@ -1,14 +1,14 @@
-import { ApolloServer } from 'apollo-server';
-import { ApolloGateway } from '@apollo/gateway';
+import { LocalStorageManager } from './services/local-storage-manager';
+import { SupergraphStorageManager } from './services/interfaces';
+import { ServerManager } from './services/server-manager';
 
-const gateway = new ApolloGateway({
-  serviceList: [
-    { name: 'users', url: process.env.URL_USER_APP },
-    { name: 'articles', url: process.env.URL_ARTICLE_APP },
-  ],
-});
+const main = async () => {
+  const superGraphManager: SupergraphStorageManager = new LocalStorageManager()
+  const serverManager: ServerManager = new ServerManager(superGraphManager)
+  await serverManager.runApp()
+}
 
-const server = new ApolloServer({ gateway });
+main()
 
-server
-  .listen({ port: process.env.PORT })
+
+
