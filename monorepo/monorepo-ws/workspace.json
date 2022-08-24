@@ -9,6 +9,7 @@
     "prisma-user-app-client": "libs/prisma-user-app-client",
     "server": "libs/server",
     "shared-configs": "libs/shared-configs",
+    "supergraph-manager": "libs/supergraph-manager",
     "update-supergraph-app": "apps/update-supergraph-app",
     "userapp": "apps/userapp"
   }

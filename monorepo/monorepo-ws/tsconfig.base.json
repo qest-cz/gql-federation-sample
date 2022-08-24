@@ -25,7 +25,10 @@
         "libs/prisma-user-app-client/src/index.ts"
       ],
       "@monorepo-ws/server": ["libs/server/src/index.ts"],
-      "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"]
+      "@monorepo-ws/shared-configs": ["libs/shared-configs/src/index.ts"],
+      "@monorepo-ws/supergraph-manager": [
+        "libs/supergraph-manager/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
