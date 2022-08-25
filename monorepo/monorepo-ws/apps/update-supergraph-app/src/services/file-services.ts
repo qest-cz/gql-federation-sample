@@ -9,7 +9,7 @@ export const checkAndRemoveCreatedFile = async (path: string) => {
         }
         await removeFile(path)
     } catch(err) {
-        throw new Error(err.message)
+        throw err
     }
 }
 

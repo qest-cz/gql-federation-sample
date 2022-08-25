@@ -1,4 +1,4 @@
-import { Configuration, LocalStorageManager, PrismaManager, Storage, SupergraphManager } from "@monorepo-ws/supergraph-manager"
+import { Configuration, GetSupergraphManager, Storage, SupergraphManager } from "@monorepo-ws/supergraph-manager"
 import { interval } from "./configuration/config"
 import * as config from './configuration/config'
 import { RoverManager } from "./services/rover-manager"
@@ -19,7 +19,7 @@ const getSupergraphConfiguration = (): Configuration => {
 }
 
 const createRover = (configuration: Configuration, storage: Storage) :RoverManager => {
-    const supergraphManager: SupergraphManager = storage == Storage.Local ? new LocalStorageManager(configuration) : new PrismaManager(configuration)
+    const supergraphManager: SupergraphManager = GetSupergraphManager(storage, configuration)
     return new RoverManager(supergraphManager)
 }
 

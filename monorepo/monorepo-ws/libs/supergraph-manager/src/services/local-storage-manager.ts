@@ -23,7 +23,7 @@ export class LocalStorageManager implements SupergraphManager{
         }
         if(!await this.checkSupergraph(newFile)){
             await fsPromises.writeFile(this.config.supergraphFile, newFile)
-            await fsPromises.writeFile(this.config.supergraphLocation + "supergraph" + Date.now().toString() + ".graphql", newFile)
+            await fsPromises.writeFile(`${this.config.supergraphLocation}supergraph${Date.now().toString()}.graphql`, newFile)
             this.setActualSupergraph(newFile)
         }
     }

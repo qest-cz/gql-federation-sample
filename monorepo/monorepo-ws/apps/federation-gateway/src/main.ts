@@ -1,7 +1,8 @@
 
 import { ServerManager } from './services/server-manager';
 import { Storage, SupergraphManager } from '@monorepo-ws/supergraph-manager';
-import { createSupergraphManager } from './dependencies';
+import { createSupergraphManager } from './dic';
+import { storage } from './configuration/config';
 
 const main = async (storage: Storage) => {  
   const supergraphManager: SupergraphManager = createSupergraphManager(storage)
@@ -9,7 +10,7 @@ const main = async (storage: Storage) => {
   await serverManager.runApp()
 }
 
-main(Storage.Local)
+main(storage)
 
 
 

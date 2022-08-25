@@ -36,7 +36,7 @@ export class PrismaManager implements SupergraphManager{
         if(!this.checkSupergraph(newFile)){
             await this.prisma.supergraph.create({
                 data: {
-                    id: "supergraph" +  Date.now().toString() + ".graphql",
+                    id: `supergraph${Date.now().toString()}.graphql`,
                     file: newFile.toString()
                 }
             })
