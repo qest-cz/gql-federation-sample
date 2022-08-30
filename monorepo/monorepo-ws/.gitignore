@@ -9,7 +9,7 @@
 node_modules
 .env.local
 /libs/prisma-article-app-client/src/generated
-/libs/prisma-federation-gateway-client/src/generated
+/libs/supergraph-manager/src/generated
 /libs/prisma-user-app-client/src/generated
 /apps/update-supergraph-app/src/services/supergraphs
 

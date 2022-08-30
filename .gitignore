@@ -1,6 +1,6 @@
 node_modules
 .env.local
 /monorepo/monorepo-ws/libs/prisma-article-app-client/src/generated
-/monorepo/monorepo-ws/libs/prisma-federation-gateway-client/src/generated
+/monorepo/monorepo-ws/libs/supergraph-manager/src/generated
 /monorepo/monorepo-ws/libs/prisma-user-app-client/src/generated
 /monorepo/monorepo-ws/apps/update-supergraph-app/src/services/supergraphs

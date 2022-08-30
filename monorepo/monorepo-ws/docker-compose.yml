@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  userapp:
+    build:
+      dockerfile: "apps/userapp/Dockerfile"
+      context: .
+    ports:
+      - '8080:8080'
+    environment:
+      - PORT=8080
+      - DOCKER_BUILDKIT=0
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/usersDB
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    volumes:
+      - ~/apps/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=pokus
+      - MYSQL_PASSWORD=pokus
+      - MYSQL_USER=user
+  # articleapp:
+  # build:
+  #   dockerfile: "apps/articleapp/Dockerfile"
+  #   context: .
+  # ports:
+  #   - '9000:9000'
+  # environment:
+  #   - PORT=9000
+  #   - DOCKER_BUILDKIT=0
+  # federation-gateway:
+  #   build:
+  #     dockerfile: "apps/federation-gateway/Dockerfile"
+  #     context: .
+  #   ports:
+  #     - '5000:5000'
+  #   environment:
+  #     - PORT=5000
+  #     - DOCKER_BUILDKIT=0
