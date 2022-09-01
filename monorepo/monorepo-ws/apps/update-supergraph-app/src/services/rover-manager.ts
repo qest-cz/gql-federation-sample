@@ -27,7 +27,7 @@ export class RoverManager {
       if (error instanceof RoverErrorManager) {
         logger.info(error.message);
       } else {
-        logger.info(`nevytvoreno: ${error}`);
+        logger.info(`some error: ${error}`);
       }
     }
   }
@@ -70,7 +70,7 @@ export class RoverManager {
   private async createSupergraph() {
     const superGraphsDirectory: string = config.supergraphLocation;
     const newFilePath: string = `${superGraphsDirectory}supergraph${Date.now().toString()}.graphql`;
-    const command: string = `rover supergraph compose --config ${config.supergraphConfigYml} > newFilePath`;
+    const command: string = `rover supergraph compose --config ${config.supergraphConfigYml} > ${newFilePath}`;
     try {
       await execPromisifed(command);
       return newFilePath;

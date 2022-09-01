@@ -5,4 +5,5 @@ export class UpdateSupergraphAppError extends BaseError<EnumOfErrorTypes> {}
 export enum EnumOfErrorTypes {
   InvalidNumber,
   BadStorageType,
+  BadSource,
 }

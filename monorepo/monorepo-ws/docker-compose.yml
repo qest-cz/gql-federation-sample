@@ -40,24 +40,24 @@ services:
       - INTERVAL=6000
       - STORAGE=Prisma
       - DATABASE_URL=mysql://root:pokus@mysql:3306/federationGatewayDB
-  # update-supergraph-app:
-  #   build:
-  #     dockerfile: "apps/update-supergraph-app/Dockerfile"
-  #     context: .
-  #   ports:
-  #     - '5050:5050'
-  #   environment:
-  #     - URL_USER_APP=http://userapp:8080/graphql
-  #     - URL_ARTICLE_APP=http://articleapp:9000/graphql
-  #     - SUBGRAPHS_LOCATION=./apps/update-supergraph-app/src/services/
-  #     - SUBGRAPH_USER_APP=userapp.graphql
-  #     - SUBGRAPH_ARTICLE_APP=articleapp.graphql
-  #     - SUPERGRAPH_CONFIG_YML=./apps/update-supergraph-app/src/supergraph-config.yml
-  #     - SUPERGRAPH_LOCATION=./apps/update-supergraph-app/src/services/supergraphs/
-  #     - SUPERGRAPH_FILE=./apps/update-supergraph-app/src/services/supergraphs/supergraph.graphql
-  #     - INTERVAL=20000
-  #     - SUPERGRAPH_FILE_NAME=supergraph.graphql
-  #     - DATABASE_URL=mysql://root:pokus@mysql:3306/federationGatewayDB
+  update-supergraph-app:
+    build:
+      dockerfile: "apps/update-supergraph-app/Dockerfile"
+      context: .
+    environment:
+      - URL_USER_APP=http://userapp:8080/graphql
+      - URL_ARTICLE_APP=http://articleapp:9000/graphql
+      - SUBGRAPHS_LOCATION=./apps/update-supergraph-app/src/services/
+      - SUBGRAPH_USER_APP=userapp.graphql
+      - SUBGRAPH_ARTICLE_APP=articleapp.graphql
+      - SUPERGRAPH_CONFIG_YML=./apps/update-supergraph-app/src/supergraph-config.yml
+      - SUPERGRAPH_LOCATION=./apps/update-supergraph-app/src/services/supergraphs/
+      - SUPERGRAPH_FILE=./apps/update-supergraph-app/src/services/supergraphs/supergraph.graphql
+      - INTERVAL=20000
+      - SUPERGRAPH_FILE_NAME=supergraph.graphql
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/federationGatewayDB
+      - SOURCE=Docker
+      - STORAGE=Prisma
   mysql:
     image: mysql:8
     ports:

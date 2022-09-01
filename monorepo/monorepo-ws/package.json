@@ -23,10 +23,10 @@
         "express": "^4.18.1",
         "graphql": "^16.5.0",
         "graphql-codegen": "^0.4.0",
+        "@apollo/rover": "^0.8.1",
         "tslib": "^2.3.0"
     },
     "devDependencies": {
-        "@apollo/rover": "^0.8.1",
         "@graphql-codegen/cli": "^2.11.5",
         "@graphql-codegen/typescript": "^2.7.3",
         "@graphql-codegen/typescript-document-nodes": "^2.3.3",
