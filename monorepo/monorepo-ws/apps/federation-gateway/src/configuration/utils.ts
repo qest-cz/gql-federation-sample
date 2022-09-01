@@ -12,7 +12,7 @@ export const validStorage = (storageString: string) => {
   }
 };
 
-export const checkNumber = (imput: string): number => {
+export const checkNumber = (imput: string | number): number => {
   const result: number = Number(imput);
   if (isNaN(Number(imput))) {
     throw new FederationGatewayError({

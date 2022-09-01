@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 ENV PORT=8080
 EXPOSE ${PORT}
-RUN npm install & npm install ajv  && npm cache clean --force
+RUN npm install && npm cache clean --force
 COPY . .
 RUN yarn prisma generate --schema=./libs/prisma-user-app-client/prisma/schema.prisma
 RUN npx nx build userapp

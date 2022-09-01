@@ -9,18 +9,8 @@ import * as config from './configuration/config';
 import { RoverManager } from './services/rover-manager';
 
 const main = async () => {
-  const configuration = getSupergraphConfiguration();
-  const roverManager: RoverManager = createRover(configuration, config.storage);
+  const roverManager: RoverManager = createRover(config, config.storage);
   setInterval(() => roverManager.updateSupergraph(), Number(interval));
-};
-
-const getSupergraphConfiguration = (): Configuration => {
-  const supergraphConfiguration: Configuration = {
-    supergraphFile: config.supergraphFile,
-    supergraphFileName: config.supergraphFileName,
-    supergraphLocation: config.supergraphLocation,
-  };
-  return supergraphConfiguration;
 };
 
 const createRover = (

@@ -1,7 +1,7 @@
 FROM node:16.14
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install & npm install ajv && npm cache clean --force
+RUN npm install && npm cache clean --force
 RUN npm i -g @apollo/rover
 COPY . .
 RUN yarn prisma generate --schema=./libs/supergraph-manager/prisma/schema.prisma

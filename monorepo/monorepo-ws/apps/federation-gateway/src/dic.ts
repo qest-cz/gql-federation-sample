@@ -4,24 +4,10 @@ import {
   Storage,
   SupergraphManager,
 } from '@monorepo-ws/supergraph-manager';
-import {
-  superGraphFile,
-  superGraphFileName,
-  supergraphLocation,
-} from './configuration/config';
-
-const getConfiguration = (): Configuration => {
-  const configuration: Configuration = {
-    supergraphFile: superGraphFile,
-    supergraphFileName: superGraphFileName,
-    supergraphLocation: supergraphLocation,
-  };
-  return configuration;
-};
+import * as config from './configuration/config';
 
 export const createSupergraphManager = (
   storage: Storage
 ): SupergraphManager => {
-  const configuration: Configuration = getConfiguration();
-  return GetSupergraphManager(storage, configuration);
+  return GetSupergraphManager(storage, config);
 };
