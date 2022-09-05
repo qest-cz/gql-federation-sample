@@ -5,7 +5,6 @@
         "articleapp": "apps/articleapp",
         "federation-gateway": "apps/federation-gateway",
         "prisma-article-app-client": "libs/prisma-article-app-client",
-        "prisma-federation-gateway-client": "libs/prisma-federation-gateway-client",
         "prisma-user-app-client": "libs/prisma-user-app-client",
         "server": "libs/server",
         "supergraph-manager": "libs/supergraph-manager",

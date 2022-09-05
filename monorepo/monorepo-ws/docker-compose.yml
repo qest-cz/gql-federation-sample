@@ -1,0 +1,71 @@
+version: '3.9'
+services:
+  userapp:
+    build:
+      dockerfile: "apps/userapp/Dockerfile"
+      context: .
+    ports:
+      - '8080:8080'
+    environment:
+      - PORT=8080
+      - DOCKER_BUILDKIT=0
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/usersDB
+  articleapp:
+    build:
+      dockerfile: "apps/articleapp/Dockerfile"
+      context: .
+    ports:
+      - '9000:9000'
+    environment:
+      - PORT=9000
+      - DOCKER_BUILDKIT=0
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/articlesDB
+  federation-gateway:
+    build:
+      dockerfile: "apps/federation-gateway/Dockerfile"
+      context: .
+    ports:
+      - '5000:5000'
+    environment:
+      - PORT=5000
+      - URL_USER_APP=http://userapp:8080/graphql
+      - URL_ARTICLE_APP=http://articleapp:9000/graphql
+      - SUBGRAPHS_LOCATION=./apps/federation-gateway/src/services/
+      - SUBGRAPH_USER_APP=userapp.graphql
+      - SUBGRAPH_ARTICLE_APP=articleapp.graphql
+      - SUPERGRAPH_CONFIG_YML=./apps/federation-gateway/src/supergraph-config.yml
+      - SUPERGRAPH_LOCATION=./apps/federation-gateway/src/services/supergraphs/
+      - SUPERGRAPH_FILE=./apps/federation-gateway/src/services/supergraphs/supergraph.graphql
+      - SUPERGRAPH_FILE_NAME=supergraph.graphql
+      - INTERVAL=6000
+      - STORAGE=Prisma
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/federationGatewayDB
+  update-supergraph-app:
+    build:
+      dockerfile: "apps/update-supergraph-app/Dockerfile"
+      context: .
+    environment:
+      - URL_USER_APP=http://userapp:8080/graphql
+      - URL_ARTICLE_APP=http://articleapp:9000/graphql
+      - SUBGRAPHS_LOCATION=./apps/update-supergraph-app/src/services/
+      - SUBGRAPH_USER_APP=userapp.graphql
+      - SUBGRAPH_ARTICLE_APP=articleapp.graphql
+      - SUPERGRAPH_CONFIG_YML=./apps/update-supergraph-app/src/supergraph-config.yml
+      - SUPERGRAPH_LOCATION=./apps/update-supergraph-app/src/services/supergraphs/
+      - SUPERGRAPH_FILE=./apps/update-supergraph-app/src/services/supergraphs/supergraph.graphql
+      - INTERVAL=20000
+      - SUPERGRAPH_FILE_NAME=supergraph.graphql
+      - DATABASE_URL=mysql://root:pokus@mysql:3306/federationGatewayDB
+      - SOURCE=Docker
+      - STORAGE=Prisma
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    volumes:
+      - ~/apps/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=pokus
+      - MYSQL_PASSWORD=pokus
+      - MYSQL_USER=user
+

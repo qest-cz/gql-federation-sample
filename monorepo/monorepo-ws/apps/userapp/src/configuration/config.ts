@@ -1,3 +1,3 @@
-import { checkNumber } from "./utils";
+import { checkNumber } from './utils';
 
-export const port: number = checkNumber(process.env.PORT)
+export const port: number = checkNumber(process.env.PORT || 80);

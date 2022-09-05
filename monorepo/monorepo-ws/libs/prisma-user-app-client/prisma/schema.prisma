@@ -2,8 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output = "../src/generated"
+  provider      = "prisma-client-js"
+  output        = "../src/generated"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -12,7 +13,7 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   name       String
   age        Int
   married    Boolean
@@ -21,9 +22,10 @@ model User {
 }
 
 model FriendShip {
-  friendOf   User @relation("friendOf", fields: [friendOfId], references: [id])
-  friendOfId Int
-  friendWith    User @relation("friendWith", fields: [friendWithId], references: [id])
-  friendWithId  Int
+  friendOf     User @relation("friendOf", fields: [friendOfId], references: [id])
+  friendOfId   Int
+  friendWith   User @relation("friendWith", fields: [friendWithId], references: [id])
+  friendWithId Int
+
   @@id([friendWithId, friendOfId])
 }
