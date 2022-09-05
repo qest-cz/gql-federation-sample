@@ -1,9 +1,9 @@
 subgraphs:
-  users:
-    routing_url: http://userapp:8080/graphql
-    schema:
-      file: ./services/userapp.graphql
-  articles:
-    routing_url: http://articleapp:9000/graphql
-    schema:
-      file: ./services/articleapp.graphql
+	userapp:
+		routing_url: http://userapp:8080/graphql
+		schema:
+			file: ./services/userapp.graphql
+	articleapp:
+		routing_url: http://articleapp:9000/graphql
+		schema:
+			file: ./services/articleapp.graphql

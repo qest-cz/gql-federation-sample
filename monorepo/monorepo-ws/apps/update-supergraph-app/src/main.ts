@@ -7,8 +7,10 @@ import {
 import { interval } from './configuration/config';
 import * as config from './configuration/config';
 import { RoverManager } from './services/rover-manager';
+import { createConfigFile } from './services/config-file-services';
 
 const main = async () => {
+  await createConfigFile();
   const roverManager: RoverManager = createRover(config, config.storage);
   setInterval(() => roverManager.updateSupergraph(), Number(interval));
 };
