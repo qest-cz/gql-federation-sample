@@ -4,8 +4,7 @@ import { router } from './router';
 import { ApolloServer} from 'apollo-server-express';
 import { ApolloServerPluginLandingPageLocalDefault, Context } from 'apollo-server-core';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { DocumentNode } from 'graphql';
-import { GraphQLResolverMap, GraphQLSchemaModule } from '@apollo/subgraph/dist/schema-helper';
+import { GraphQLSchemaModule } from '@apollo/subgraph/dist/schema-helper';
 import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 
 export const listen = (port: number, apolo) => {
@@ -19,7 +18,7 @@ export const listen = (port: number, apolo) => {
     });
     return expressServer
         .listen(port, () => {
-            logger.info('[Express] Listening at ' + port);
+            logger.info(`[Express] Listening at ${port}`);
         })
         .on('error', (e) => logger.error(e));
 };

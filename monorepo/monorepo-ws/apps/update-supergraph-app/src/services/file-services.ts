@@ -2,19 +2,19 @@ import * as fs from 'fs'
 import {promises as fsPromises} from 'fs';
 import { supergraphFile } from '../configuration/config';
 
-export const checkAndRemoveCreatedFile = (path: string) => {
+export const checkAndRemoveCreatedFile = async (path: string) => {
     try {
         if(!fs.existsSync(path)){
             return;            
         }
-        removeFile(path)
+        await removeFile(path)
     } catch(err) {
-        throw new Error(err.message)
+        throw err
     }
 }
 
-export const removeFile = (path: string) => {
-    fs.unlink(path, (err) => {
+export const removeFile = async (path: string) => {
+    await fs.unlink(path, (err) => {
         if(err){
             throw err
         }

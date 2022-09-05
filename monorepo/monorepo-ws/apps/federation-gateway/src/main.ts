@@ -1,14 +1,16 @@
-import { LocalStorageManager } from './services/local-storage-manager';
-import { SupergraphStorageManager } from './services/interfaces';
-import { ServerManager } from './services/server-manager';
 
-const main = async () => {
-  const superGraphManager: SupergraphStorageManager = new LocalStorageManager()
-  const serverManager: ServerManager = new ServerManager(superGraphManager)
+import { ServerManager } from './services/server-manager';
+import { Storage, SupergraphManager } from '@monorepo-ws/supergraph-manager';
+import { createSupergraphManager } from './dic';
+import { storage } from './configuration/config';
+
+const main = async (storage: Storage) => {  
+  const supergraphManager: SupergraphManager = createSupergraphManager(storage)
+  const serverManager: ServerManager = new ServerManager(supergraphManager)
   await serverManager.runApp()
 }
 
-main()
+main(storage)
 
 
 

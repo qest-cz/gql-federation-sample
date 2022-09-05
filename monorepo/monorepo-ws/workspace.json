@@ -1,15 +1,15 @@
 {
-  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
-  "version": 2,
-  "projects": {
-    "articleapp": "apps/articleapp",
-    "federation-gateway": "apps/federation-gateway",
-    "prisma-article-app-client": "libs/prisma-article-app-client",
-    "prisma-federation-gateway-client": "libs/prisma-federation-gateway-client",
-    "prisma-user-app-client": "libs/prisma-user-app-client",
-    "server": "libs/server",
-    "shared-configs": "libs/shared-configs",
-    "update-supergraph-app": "apps/update-supergraph-app",
-    "userapp": "apps/userapp"
-  }
+    "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+    "version": 2,
+    "projects": {
+        "articleapp": "apps/articleapp",
+        "federation-gateway": "apps/federation-gateway",
+        "prisma-article-app-client": "libs/prisma-article-app-client",
+        "prisma-federation-gateway-client": "libs/prisma-federation-gateway-client",
+        "prisma-user-app-client": "libs/prisma-user-app-client",
+        "server": "libs/server",
+        "supergraph-manager": "libs/supergraph-manager",
+        "update-supergraph-app": "apps/update-supergraph-app",
+        "userapp": "apps/userapp"
+    }
 }

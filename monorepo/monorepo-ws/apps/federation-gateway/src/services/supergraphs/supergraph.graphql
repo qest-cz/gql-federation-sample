@@ -33,7 +33,6 @@ type Query {
   articles: [Article] @join__field(graph: ARTICLES)
   getAllArticles: [Article!]! @join__field(graph: ARTICLES)
   getAllUsers: [User!]! @join__field(graph: USERS)
-  getArticleById(id: ID!): Article! @join__field(graph: ARTICLES)
   getUserById(id: Int): User! @join__field(graph: USERS)
   getUserByName(name: String!): User @join__field(graph: USERS)
   getUserByNameOrAge(age: Int, name: String): [User]! @join__field(graph: USERS)
