@@ -1,5 +1,3 @@
-
-
 # MonorepoWs
 
 This project was generated using [Nx](https://nx.dev).
@@ -79,8 +77,6 @@ Run `nx graph` to see a diagram of the dependencies of your projects.
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
 
-
-
 ## ☁ Nx Cloud
 
 ### Distributed Computation Caching & Distributed Task Execution
@@ -94,6 +90,7 @@ Teams using Nx gain the advantage of building full-stack applications with their
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
 ## How to add prisma to app
+
 We have to create separate lib of prisma client for every using apps. All npm commands have to set to global `package.json` of monorepo. Here is link where is tutorial what we have to install. `https://www.prisma.io/docs/getting-started/quickstart`
 
 create lib:
@@ -106,7 +103,7 @@ After init schema we can run migration. We have to be in directory of our new li
 
 `npx prisma migrate dev --name init`
 
-Next we have to generate prisma client from our schema. Remove everything in src expect `index.ts` and run `yarn prisma generate --schema=./libs/prisma-article-client/prisma/schema.prisma`. Output is defined in `schema.prisma`. 
+Next we have to generate prisma client from our schema. Remove everything in src expect `index.ts` and run `yarn prisma generate --schema=./libs/prisma-article-client/prisma/schema.prisma`. Output is defined in `schema.prisma`.
 
 In `src/index.ts` define export of created directory (in my example `export * from "./generated"`)
 
@@ -115,40 +112,48 @@ Now we can import `PrismaClient` from this our lib.
 My prisma client lib example you can find in `lib/prisma-article-app-client`
 
 # Federation gateway app
-  If we want to run federation gateway when no run other application (subraphs) we can run it with supergraph.
 
-  For creating supergraph I created separate application `update-supergraph-app`. This app is trying create new supergraphs in interval. 
+If we want to run federation gateway when no run other application (subraphs) we can run it with supergraph.
 
-  When we want to create supergraph, we have to prepare all subgraphs. I solve this with `rover subgraph introspect app_url > new_file.graphql`.
-  when we create all subraphs we have to create config file for gateway. In src we create `supergraph-config.yml` where are define subgraphs and routing url.
+For creating supergraph I created separate application `update-supergraph-app`. This app is trying create new supergraphs in interval.
 
-  subgraphs:
-    users:
-      routing_url: http://localhost:8080/graphql
-      schema:
-        file: ./services/userapp.graphql
-    ....next apps
+When we want to create supergraph, we have to prepare all subgraphs. I solve this with `rover subgraph introspect app_url > new_file.graphql`.
+when we create all subraphs we have to create config file for gateway. In src we create `supergraph-config.yml` where are define subgraphs and routing url.
 
-  No we can create super graph.
-  `rover supergraph compose --config  'app_url' > new_file.graphql`
+subgraphs:
+users:
+routing_url: http://localhost:8080/graphql
+schema:
+file: ./services/userapp.graphql
+....next apps
 
-  # update-supergraph-app
-  Application regularly try create new supergraph by `rover` from subgraphs running applications. All graphs generating provide RoverManager. Manager generates subgraph. When is every ok, manager continues with supergraph generation. Now our `libs/supergraph-manager` check content of created supergraph. When lib find change, save new supergraph to storage. After all operations Manager remove files which was created by rover.
+No we can create supergraph.
+`rover supergraph compose --config 'app_url' > new_file.graphql`
 
-  # libs/supergraph-manager
-  This lib ensure save, get, update of supergraphs from selected storage (local-storage, DB (Prisma)).
+# update-supergraph-app
+
+At first app create config file `supergraph-config.yml` from enviroments values (app name, routing url) by the `SOURCE` whitch can be `Localhost` or `Docker`. Next application regularly try create new supergraph by `rover` from subgraphs running applications. All graphs generating provide RoverManager. Manager generates subgraph. When is every ok, manager continues with supergraph generation. Now our `libs/supergraph-manager` check content of created supergraph. When lib find change, save new supergraph to storage. After all operations Manager remove files which was created by rover.
+
+# Storage
+
+Application can work with two storages.
+
+1. Local storage on disk
+   We have to set SOURCE in .env.local to `Localhost`.
+   Now we have to set path of `supergraph.qraphql` to `SUPERGRAPH_FILE` and path, where will be save copies of supergraphs with timestamp (`SUPERGRAPH_LOCATION`)
+
+2. Database (by Prisma)
+   We have to set up only `DATABASE_URL` in `supergraph-manager`. In dabase is created table Supergraphs with two columns. In the table have to created row for current supergraph. It has id value `supergraph.graphql` and file, where is string content of supergraph file.
+
+# libs/supergraph-manager
+
+This lib ensure save, get, check of supergraphs from selected storage (local-storage, DB (Prisma)).
 
 # How to run federation gateway
-Before we start this application we have to set up configuration for storage. We can chose local storage or DB (Prisma) in enviromens. In main function is run function `runApp` from `ServerManager`. In this function is started server. In env is set up interval for check supergraphs. When is find change, server is restarded with new supergraph.
 
+Before we start this application we have to set up configuration for storage. We can chose local storage or DB (Prisma) in enviromens. In main function is run function `runApp` from `ServerManager`. In this function is started server. In .env is set up interval for check supergraphs. When is find change, server is restarded with new supergraph.
 
+# run on localhost or Docker
 
-
-
-
-
-
-
-
-
-
+For run federation gateway on localhost we have to set up `SOURCE` in .env.local to `Localhost`.
+For run on docker is created `docker-compose.yml` where is configuration. If you want run it, You have to run command `docker-compose build`. This create docker images. When we have created docker images, we have tu run `docker-compose up`.
