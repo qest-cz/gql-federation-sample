@@ -1,6 +1,52 @@
 import { EnumOfErrorTypes, UpdateSupergraphAppError } from './errors/errors';
 import { Storage } from '@monorepo-ws/supergraph-manager';
+import { source } from './config';
 
+export enum Source {
+  Docker,
+  Localhost,
+}
+
+export interface ConfigFileElement {
+  AppName: string;
+  RoutingUrl: string;
+  file: string;
+}
+
+export const setConfigSupergraphElement = (): ConfigFileElement[] => {
+  return [
+    {
+      AppName: process.env.USERAPP_NAME,
+      RoutingUrl: setRoutingUrl(
+        process.env.URL_USER_APP,
+        process.env.URL_USER_APP_DOCKER
+      ),
+      file: `${process.env.SUBGRAPH_LOCATION_FOR_CONFIG_YML}${process.env.SUBGRAPH_USER_APP}`,
+    },
+    {
+      AppName: process.env.ARTICLEAPP_NAME,
+      RoutingUrl: setRoutingUrl(
+        process.env.URL_ARTICLE_APP,
+        process.env.URL_ARTICLE_APP_DOCKER
+      ),
+      file: `${process.env.SUBGRAPH_LOCATION_FOR_CONFIG_YML}${process.env.SUBGRAPH_ARTICLE_APP}`,
+    },
+  ];
+};
+
+const setRoutingUrl = (localUrl: string, dockerUrl: string): string => {
+  switch (source) {
+    case Source.Localhost:
+      return localUrl;
+    case Source.Docker:
+      return dockerUrl;
+    default:
+      throw new UpdateSupergraphAppError({
+        type: EnumOfErrorTypes.BadSource,
+        message: `Invalid source! ${source}`,
+      });
+  }
+};
 export const checkNumber = (imput: string | number): number => {
   const result: number = Number(imput);
   if (isNaN(Number(imput))) {
@@ -12,7 +58,7 @@ export const checkNumber = (imput: string | number): number => {
   return result;
 };
 
-export const validStorage = (storageString: string) => {
+export const validStorage = (storageString: string): Storage => {
   try {
     return Storage[storageString];
   } catch (error) {
@@ -23,25 +69,9 @@ export const validStorage = (storageString: string) => {
   }
 };
 
-enum Source {
-  Docker,
-  Localhost,
-}
-
-export const setSupergraphConfigYml = (): string => {
+export const validSource = (source: string): Source => {
   try {
-    const source: Source = Source[process.env.SOURCE];
-    switch (source) {
-      case Source.Localhost:
-        return process.env.SUPERGRAPH_LOCALHOST_CONFIG_YML;
-      case Source.Docker:
-        return process.env.SUPERGRAPH_CONFIG_YML;
-      default:
-        throw new UpdateSupergraphAppError({
-          type: EnumOfErrorTypes.BadSource,
-          message: 'Unsupported source!',
-        });
-    }
+    return Source[source];
   } catch (error) {
     throw new UpdateSupergraphAppError({
       type: EnumOfErrorTypes.BadSource,

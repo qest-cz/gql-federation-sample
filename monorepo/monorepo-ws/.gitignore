@@ -1,5 +1,6 @@
 node_modules
 .env.local
+supergraph-config.yml
 generated
 dist
 supergraphs
