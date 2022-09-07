@@ -20,12 +20,3 @@ export const removeFile = async (path: string) => {
     }
   });
 };
-
-export const checkNewSupergraph = async (newFile: string) => {
-  const newSuperGraph = await fsPromises.readFile(newFile);
-  const currentSupergraph = await fsPromises.readFile(supergraphFile);
-  if (newSuperGraph.equals(currentSupergraph)) {
-    return removeFile(newFile);
-  }
-  fsPromises.writeFile(supergraphFile, newSuperGraph);
-};
